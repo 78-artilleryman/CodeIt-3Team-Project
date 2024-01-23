@@ -1,6 +1,11 @@
 import { useState } from "react";
 
-export function useInput(initialValue: string, validator :any) {
+type ValidatorType = (value: string) => {
+    isValid: boolean;
+    message: string;
+  };
+
+export function useInput(initialValue: string, validator : ValidatorType) {
     const [inputValue, setInputValue] = useState(initialValue)
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>):void => {
