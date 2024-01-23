@@ -1,0 +1,60 @@
+.signup_wrapper {
+    width: 414px;
+
+
+   margin: 0 auto;
+   margin-top: 50px;
+  
+}
+
+.signup_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    
+  
+}
+.signup_form_text_box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.input_box {
+    display: flex;
+    flex-direction: column;
+}
+
+.input {
+    border-radius: 15px;
+    border: 1.5px solid #000;
+    width: 414px;
+    height: 56px;
+    background: #FFF;
+    outline: none;
+}
+
+.signup_btn {
+    width: 414px;
+height: 60px;
+border: none;
+border-radius: 10px;
+margin-top: 30px;
+background-color: #000;
+color: #fff;
+}
+
+.error_message {
+    font-size: 14px;
+    color:#FB4040;
+}
+
+.isValid {
+    background: #CCC;
+    color: #fff;
+}
+
+.valid {
+    background-color: #000;
+}
