@@ -1,18 +1,13 @@
-import ChattingPage from 'pages/Chatting';
-import HomePage from 'pages/Home';
-import IntroPage from 'pages/Home/IntroPage';
-import PostDetailPage from 'pages/Posts/PostDetailPage';
-import PostEditPage from 'pages/Posts/PostEditPage';
-import PostWritePage from 'pages/Posts/PostWritePage';
-import LoginPage from 'pages/Users/LoginPage';
-import MyPage from 'pages/Profile/MyPage';
-import SignUpIntroPage from 'pages/Users/SignUpIntroPage';
-import UserDataPage from 'pages/Profile/UserDataPage';
-import React from 'react'
 import { Route, Routes, Navigate } from 'react-router-dom';
-import SignUpPage from 'pages/Users/SignUpPage';
+import {pageModule}  from 'pages/PageModule';
 
 function Router() {
+  const {HomePage, IntroPage} = pageModule.Home;
+  const {LoginPage,SignUpIntroPage, SignUpPage} = pageModule.Users;
+  const {PostDetailPage, PostEditPage, PostWritePage} = pageModule.Posts;
+  const {UserDataPage, MyPage} = pageModule.Profile;
+  const {ChattingPage} = pageModule.Chatting;
+
   return (
   <Routes>
     {/*시작 페이지*/}
