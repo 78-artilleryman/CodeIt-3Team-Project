@@ -11,7 +11,8 @@ import { useNavigate } from "react-router-dom"
 import "../../css/signupform.css"
 import { toast } from "react-toastify"
 import useInput from "hooks/useInput"
-import * as Validation from "utils/validator"
+import * as Validation from "utils/form-validation"
+import { FormEvent } from "react"
 
 function SignupForm() {
   const navigate = useNavigate()
@@ -83,13 +84,22 @@ function SignupForm() {
   //     })
   // }
 
+  // const [passwordConfirm, setPasswordConfirm] = useState("")
+
   const nameState = useInput((value) => Validation.nameValidation(value))
   const emailState = useInput((value) => Validation.emailValidation(value))
   const passwordState = useInput((value) => Validation.passwordValidation(value))
+  const passwordConfirmState = useInput((value) => Validation.passwordConfirmValidation(value, passwordState.value))
 
+  const isDisabled =
+    !nameState.isValid || !emailState.isValid || !passwordState.isValid || !passwordConfirmState.isValid
+
+  const submitHandler = (event: FormEvent) => {
+    event.preventDefault()
+  }
   return (
     <div>
-      <form>
+      <form onSubmit={submitHandler}>
         <div>
           <label>이름</label>
           <input
@@ -99,6 +109,7 @@ function SignupForm() {
             onFocus={nameState.inputFocusHandler}
             value={nameState.value}
           />
+          {nameState.hasError && <p>{nameState.message}</p>}
         </div>
 
         <div>
@@ -110,6 +121,7 @@ function SignupForm() {
             onFocus={emailState.inputFocusHandler}
             value={emailState.value}
           />
+          {emailState.hasError && <p>{emailState.message}</p>}
         </div>
 
         <div>
@@ -121,19 +133,22 @@ function SignupForm() {
             onChange={passwordState.inputChangeHandler}
             onFocus={passwordState.inputFocusHandler}
           />
+          {passwordState.hasError && <p>{passwordState.message}</p>}
         </div>
 
         <div>
           <label>비밀번호 확인</label>
-          {/* <input
+          <input
             placeholder="passwordconfirm"
             type="password"
-            onChange={(e) => setUserPasswordConfirm(e.target.value)}
-            value={userPasswordConfirm}
-          /> */}
+            onChange={passwordConfirmState.inputChangeHandler}
+            value={passwordConfirmState.value}
+            onFocus={passwordConfirmState.inputFocusHandler}
+          />
+          {passwordConfirmState.hasError && <p>{passwordConfirmState.message}</p>}
         </div>
 
-        <button>회원가입</button>
+        <button disabled={isDisabled}>회원가입</button>
       </form>
     </div>
   )

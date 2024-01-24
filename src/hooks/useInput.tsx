@@ -3,9 +3,9 @@ import { ChangeEvent, useState } from "react"
 type UseInputCallbackType = (value: string) => { result: boolean; message: string }
 
 export default function useInput(validator: UseInputCallbackType) {
-  const [inputState, setInputState] = useState({ value: "", isTouched: false, message: "" })
-  const validation = validator(inputState.value)
-  const isValid = inputState.isTouched && validation.result
+  const [inputState, setInputState] = useState({ value: "", isTouched: false })
+  const { result, message } = validator(inputState.value)
+  const hasError = inputState.isTouched && !result
 
   const inputFocusHandler = () => setInputState((state) => ({ ...state, isTouched: true }))
 
@@ -14,8 +14,9 @@ export default function useInput(validator: UseInputCallbackType) {
 
   return {
     value: inputState.value,
-    isValid,
-    message: validation.message,
+    isValid: result,
+    hasError,
+    message,
     inputChangeHandler,
     inputFocusHandler,
   }
