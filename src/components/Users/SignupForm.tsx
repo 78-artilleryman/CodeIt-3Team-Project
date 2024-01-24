@@ -1,20 +1,19 @@
-import { app } from "firebaseApp/config"
+import { app } from "firebaseApp/config";
 import {
   createUserWithEmailAndPassword,
   getAuth,
   GoogleAuthProvider,
   GithubAuthProvider,
   signInWithPopup,
-} from "firebase/auth"
-
-import { useNavigate } from "react-router-dom"
-import "../../css/signupform.css"
-import { toast } from "react-toastify"
-import useInput from "hooks/useInput"
-import * as Validation from "utils/validator"
+} from "firebase/auth";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import useInput from "hooks/useInput";
+import * as Validation from "utils/validator";
+import styles from "./Scss/index.module.scss";
 
 function SignupForm() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   // const passwordConfirmValidator = (value: string) => {
   //   if (value === "") {
@@ -83,60 +82,68 @@ function SignupForm() {
   //     })
   // }
 
-  const nameState = useInput((value) => Validation.nameValidation(value))
-  const emailState = useInput((value) => Validation.emailValidation(value))
-  const passwordState = useInput((value) => Validation.passwordValidation(value))
-
+  const nameState = useInput(value => Validation.nameValidation(value));
+  const emailState = useInput(value => Validation.emailValidation(value));
+  const passwordState = useInput(value => Validation.passwordValidation(value));
+  console.log(nameState);
+  console.log(emailState);
+  console.log(passwordState);
   return (
-    <div>
-      <form>
-        <div>
-          <label>이름</label>
+    <div className={styles.container}>
+      <div className={styles.title}>
+        <h1>회원가입</h1>
+        <p>Studit에서 팀원을 모집 해보세요🙂</p>
+      </div>
+      <form className={styles.form}>
+        <div className={styles.form_block}>
+          <label htmlFor="user_name">이름</label>
           <input
-            placeholder="이름"
+            id="user_name"
+            placeholder="이름을 입력해주세요."
             type="text"
             onChange={nameState.inputChangeHandler}
             onFocus={nameState.inputFocusHandler}
             value={nameState.value}
           />
         </div>
-
-        <div>
-          <label>이메일</label>
+        <div className={styles.form_block}>
+          <label htmlFor="user_email">이메일</label>
           <input
-            placeholder="이메일"
+            id="user_email"
+            placeholder="이메일을 입력해주세요."
             type="text"
             onChange={emailState.inputChangeHandler}
             onFocus={emailState.inputFocusHandler}
             value={emailState.value}
           />
         </div>
-
-        <div>
-          <label>비밀번호</label>
+        <div className={styles.form_block}>
+          <label htmlFor="user_password">비밀번호</label>
           <input
-            placeholder="password"
+            id="user_password"
+            placeholder="특수문자를 포함한 비밀번호를 입력해주세요."
             type="password"
             value={passwordState.value}
             onChange={passwordState.inputChangeHandler}
             onFocus={passwordState.inputFocusHandler}
           />
         </div>
-
-        <div>
-          <label>비밀번호 확인</label>
-          {/* <input
-            placeholder="passwordconfirm"
-            type="password"
-            onChange={(e) => setUserPasswordConfirm(e.target.value)}
-            value={userPasswordConfirm}
-          /> */}
+        <div className={styles.form_block}>
+          <label htmlFor="user_password_confirm">비밀번호 확인</label>
+          <input id="user_password_confirm" placeholder="비밀번호를 다시 입력해주세요" type="password" />
         </div>
-
-        <button>회원가입</button>
+        <div className={styles.form_block}>
+          <button>회원가입</button>
+          <button className={styles.gogle_btn}>Google 계정으로 가입하기</button>
+          <button className={styles.github_btn}>GitHub 계정으로 가입하기</button>
+          <p>
+            이미 회원이신가요?
+            <Link to="/users/login"> 로그인 하기</Link>
+          </p>
+        </div>
       </form>
     </div>
-  )
+  );
 }
 
-export default SignupForm
+export default SignupForm;

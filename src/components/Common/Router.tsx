@@ -1,5 +1,5 @@
-import { Chatting, Home, Posts, Profile, Users } from "pages"
-import { Route, Routes, Navigate } from "react-router-dom"
+import { Chatting, Home, Posts, Profile, Users } from "pages";
+import { Route, Routes, Navigate } from "react-router-dom";
 
 function Router() {
   return (
@@ -9,8 +9,7 @@ function Router() {
       <Route path="/intro" element={<Home.IntroPage />}></Route>
       {/*로그인 및 회원가입 페이지*/}
       <Route path="/users/login" element={<Users.LoginPage />}></Route>
-      <Route path="/users/signup/intro" element={<Users.SignUpIntroPage />}></Route>
-      <Route path="/users/signup/form" element={<Users.SignUpPage />}></Route>
+      <Route path="/users/signup" element={<Users.SignUpPage />}></Route>
       {/*게시물 작성, 수정, 상세 페이지*/}
       <Route path="/posts/:id" element={<Posts.PostDetailPage />}></Route>
       <Route path="/posts/edit/:id" element={<Posts.PostEditPage />}></Route>
@@ -22,7 +21,7 @@ function Router() {
       {/*지정하지 않은 url이면 홈으로 이동*/}
       <Route path="*" element={<Navigate replace to={`/`} />} />
     </Routes>
-  )
+  );
 }
 
-export default Router
+export default Router;
