@@ -2,7 +2,7 @@ import React from 'react'
 
 function PostDetailPage() {
   return (
-    <div>PostDetailPage</div>
+    <div>PostDdetailPage</div>
   )
 }
 

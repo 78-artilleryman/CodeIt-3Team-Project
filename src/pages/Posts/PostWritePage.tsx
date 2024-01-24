@@ -1,8 +1,8 @@
 import React from 'react'
-
+import TinyMceContainer from 'components/Posts/TinymceContainer'
 function PostWritePage() {
   return (
-    <div>PostWritePage</div>
+    <TinyMceContainer/>
   )
 }
 
