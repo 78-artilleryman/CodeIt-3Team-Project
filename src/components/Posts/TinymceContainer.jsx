@@ -2,12 +2,14 @@ import { Editor } from "@tinymce/tinymce-react";
 import React from "react";
 
 export default function TinyMceContainer () {
+
+
     return (
         <>
        
         <Editor
               id = 'tinyEditor'
-              apiKey = 'x1q5ht9kvvjrulmek6rnk0bva0ekzznixbtgs3m7snz9sybq'
+              apiKey = {process.env.REACT_APP_TINY_MCE_API_KEY}
               init={{
             height: 700,
             menubar: false,
