@@ -8,6 +8,7 @@ import LoginPage from 'pages/Users/LoginPage';
 import MyPage from 'pages/Profile/MyPage';
 import SignUpIntroPage from 'pages/Users/SignUpIntroPage';
 import UserDataPage from 'pages/Profile/UserDataPage';
+import NotFound from './NotFound/NotFound';
 import React from 'react'
 import { Route, Routes, Navigate } from 'react-router-dom';
 import SignUpPage from 'pages/Users/SignUpPage';
@@ -32,7 +33,7 @@ function Router() {
     {/*채팅 페이지*/}
     <Route path='/chatting' element={<ChattingPage/>}></Route>
     {/*지정하지 않은 url이면 홈으로 이동*/}
-    <Route path='*' element={<Navigate replace to={`/`}/>}/>
+    <Route path='*' element={ <NotFound/>}></Route>
   </Routes>
   )
 }

@@ -1,0 +1,31 @@
+.notfound_wrapper {
+    width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 250px;
+}
+
+.notfound_title {
+    font-family: "Noto Sans KR";
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.notfound_text {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.back_to_main_button {
+    width: 150px;
+    height: 56px;
+    color: #FFF;
+    border: none;
+    font-family: "Noto Sans CJK KR";
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 10px;
+    background: #1E1E1E;
+}
