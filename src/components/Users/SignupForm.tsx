@@ -1,126 +1,63 @@
-import { app } from 'firebaseApp/config'
-import { 
+import { app } from "firebaseApp/config";
+import {
   createUserWithEmailAndPassword,
-  getAuth, 
+  getAuth,
   GoogleAuthProvider,
-  GithubAuthProvider, 
-  signInWithPopup
-} from 'firebase/auth'
-
-import { useNavigate } from 'react-router-dom'
-import React, { useState } from 'react'
-import "../../css/signupform.css"
-import { useInput } from "./useInput";
-import { toast } from 'react-toastify'
-
+  GithubAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import useInput from "hooks/useInput";
+import usePasswordInput from "hooks/usePassword";
+import * as Validation from "utils/validator";
+import styles from "./index.module.scss";
+import { useEffect, useState } from "react";
 
 function SignupForm() {
-
   const navigate = useNavigate();
- 
-  const nameValidator = (value:string) => {
-    if(value === "") {
-      return {
-        isValid : false,
-        message : '이름을 입력해주세요'
-      } 
-    }
 
-    if(value.length <= 1) {
-      return {
-        isValid : false,
-        message : '이름의 길이는 2자 이상이여야 합니다'
-      }
-    }
+  const [password, setPassword] = useState<string>("");
 
-    return { isValid: true, message : ''}
-  }
+  const nameState = useInput(value => Validation.nameValidation(value));
+  const emailState = useInput(value => Validation.emailValidation(value));
+  const passwordState = useInput(value => Validation.passwordValidation(value));
+  const passworConfirmdState = usePasswordInput((value, password) =>
+    Validation.passworConfirmdValidation(value, password)
+  );
 
-  const emailValidator = (value:string) => {
-       // 이메일 포멧
-       const emailRegEx =
-       /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/;
-       if(emailRegEx.test(value) === false) {
-        return {
-          isValid : false,
-          message : '이메일 형식을 확인해주세요!'
-        }
-       }
+  useEffect(() => {
+    setPassword(passwordState.value);
+  }, [passwordState]);
 
-       return { isValid : true, message : ''}
-}
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const {
+      target: { value },
+    } = e;
+    passworConfirmdState.inputChangeHandler(value, password);
+  };
 
-const passwordValidator = (value:string) => {
-    // 최소 8 자, 최소 하나의 문자, 하나의 숫자 및 하나의 특수 문자 
-    const passwordRegex =
-    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/;
-
-    if(value.length < 8) {
-      return {
-        isValid : false,
-        message : '비밀번호는 8자 이상이여야 합니다'
-      }
-    }
-
-    if(passwordRegex.test(value) === false) {
-      return {
-        isValid : false,
-        message : '비밀번호에는 최소 하나의 문자, 하나의 숫자 ,하나의 특수문자가 포함되어야 합니다'
-      }
-    }
-
-    return { isValid : true , message : ''}
-}
-
-const passwordConfirmValidator = (value:string) => {
-
-  if(value === "") {
-    return {
-      isValid : false,
-      message : "비밀번호 확인란을 채워주세요!"
-    }
-  }
-
-  if(value !== userPassword.inputValue) {
-    return {
-      isValid : false,
-      message : "비밀번호가 일치하지 않습니다!"
-    }
-  }
-
-  return { isValid : true, message : ''}
-}
-
-
-const userName =  useInput('', nameValidator)
-const userEmail = useInput('', emailValidator)
-const userPassword = useInput('', passwordValidator) 
-const [userPasswordConfirm, setUserPasswordConfirm] = useState('');
- 
   //파이어베이스 회원가입 로직
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    
-    try{
+    e.preventDefault();
+    try {
       const auth = getAuth(app);
-      const {inputValue: email} = userEmail;
-      const {inputValue: password} = userPassword;
+      const { value: email } = emailState;
+      const { value: password } = passwordState;
 
       await createUserWithEmailAndPassword(auth, email, password);
 
-      toast.success("회원가입에 성공했습니다.")
+      toast.success("회원가입에 성공했습니다.");
       navigate("/users/login");
-    }catch(error: any){
-      console.log(error)
-      toast.error(error?.code)
+    } catch (error: any) {
+      console.log(error);
+      toast.error(error?.code);
     }
   };
 
   //파이어베이스 소셜로그인 로직
   // 구글, 깃허브 중복 가입불가
-  const onClickSocialLogin = async(e: React.MouseEvent<HTMLButtonElement>) => {
-    
-
+  const onClickSocialLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
     const buttonElement = e.target as HTMLButtonElement;
 
     const name = buttonElement.name;
@@ -128,69 +65,147 @@ const [userPasswordConfirm, setUserPasswordConfirm] = useState('');
     let provider;
     const auth = getAuth(app);
 
-    if(name  === "google"){
+    if (name === "google") {
       provider = new GoogleAuthProvider();
     }
 
-    if(name  === "github"){
+    if (name === "github") {
       provider = new GithubAuthProvider();
     }
 
     await signInWithPopup(auth, provider as GoogleAuthProvider | GithubAuthProvider)
-    .then((result) => {
-      console.log(result);
-      toast.success("회원가입에 성공했습니다.")
+      .then(result => {
+        console.log(result);
+        toast.success("회원가입에 성공했습니다.");
+      })
+      .catch(error => {
+        console.log(error);
+        const errorMessage = error?.message;
+        toast.error("회원가입이 정상적으로 이루워지지 않았습니다.");
+      });
+  };
 
-    })
-    .catch((error)=>{
-      console.log(error);
-      const errorMessage = error?.message;
-      toast.error("회원가입이 정상적으로 이루워지지 않았습니다.")
-    })
-  }
-
-  return(
-    <div>
-      <form onSubmit={onSubmit}>
-        <div>
-          <label>이름</label>
-          <input placeholder="이름" type="text" value={userName.inputValue} onChange={userName.handleChange} ></input>
-          {<div>{nameValidator(userName.inputValue).message}</div>}
+  return (
+    <div className={styles.container}>
+      <div className={styles.title}>
+        <h1>회원가입</h1>
+        <p>Studit에서 팀원을 모집 해보세요🙂</p>
+      </div>
+      <form onSubmit={onSubmit} className={styles.form}>
+        <div className={styles.form_block}>
+          <label
+            className={!nameState.isValid && nameState.touch ? styles.form_block_laberError : styles.form_block_label}
+            htmlFor="user_name"
+          >
+            이름
+          </label>
+          <input
+            className={!nameState.isValid && nameState.touch ? styles.form_block_input_error : styles.form_block_input}
+            id="user_name"
+            placeholder="이름을 입력해주세요."
+            type="text"
+            onChange={nameState.inputChangeHandler}
+            onFocus={nameState.inputFocusHandler}
+            value={nameState.value}
+          />
+          {!nameState.isValid && nameState.touch ? (
+            <p className={styles.form_block_error}>{nameState.message}</p>
+          ) : (
+            <p></p>
+          )}
         </div>
-
-        <div>
-        <label>이메일</label>
-        <input placeholder="이메일" type="text" value={userEmail.inputValue} onChange={userEmail.handleChange}></input>
-        { <div>{emailValidator(userEmail.inputValue).message}</div>}
+        <div className={styles.form_block}>
+          <label
+            className={!emailState.isValid && emailState.touch ? styles.form_block_laberError : styles.form_block_label}
+            htmlFor="user_email"
+          >
+            이메일
+          </label>
+          <input
+            className={
+              !emailState.isValid && emailState.touch ? styles.form_block_input_error : styles.form_block_input
+            }
+            id="user_email"
+            placeholder="이메일을 입력해주세요."
+            type="text"
+            onChange={emailState.inputChangeHandler}
+            onFocus={emailState.inputFocusHandler}
+            value={emailState.value}
+          />
+          {!emailState.isValid && emailState.touch ? (
+            <p className={styles.form_block_error}>{emailState.message}</p>
+          ) : (
+            <p></p>
+          )}
         </div>
-
-        <div>
-        <label>비밀번호</label>
-        <input placeholder="password" type="password" value={userPassword.inputValue} onChange={userPassword.handleChange}></input>
-        { <div>{passwordValidator(userPassword.inputValue).message}</div>}
+        <div className={styles.form_block}>
+          <label
+            className={
+              !passwordState.isValid && passwordState.touch ? styles.form_block_laberError : styles.form_block_label
+            }
+            htmlFor="user_password"
+          >
+            비밀번호
+          </label>
+          <input
+            className={
+              !passwordState.isValid && passwordState.touch ? styles.form_block_input_error : styles.form_block_input
+            }
+            id="user_password"
+            placeholder="특수문자를 포함한 비밀번호를 입력해주세요."
+            type="password"
+            value={passwordState.value}
+            onChange={passwordState.inputChangeHandler}
+            onFocus={passwordState.inputFocusHandler}
+          />
+          {!passwordState.isValid && passwordState.touch ? (
+            <p className={styles.form_block_error}>{passwordState.message}</p>
+          ) : (
+            <p></p>
+          )}
         </div>
-
-        <div>
-          <label>비밀번호 확인</label>
-          <input placeholder="passwordconfirm" type="password" onChange={(e) => setUserPasswordConfirm(e.target.value)} value={userPasswordConfirm}></input>
-          {<div>{passwordConfirmValidator(userPasswordConfirm).message}</div>}
+        <div className={styles.form_block}>
+          <label
+            className={
+              !passworConfirmdState.isValid && passworConfirmdState.touch
+                ? styles.form_block_laberError
+                : styles.form_block_label
+            }
+            htmlFor="user_password_confirm"
+          >
+            비밀번호 확인
+          </label>
+          <input
+            className={
+              !passworConfirmdState.isValid && passworConfirmdState.touch
+                ? styles.form_block_input_error
+                : styles.form_block_input
+            }
+            id="user_password_confirm"
+            placeholder="비밀번호를 다시 입력해주세요"
+            type="password"
+            value={passworConfirmdState.value}
+            onChange={onChange}
+            onFocus={passworConfirmdState.inputFocusHandler}
+          />
+          {!passworConfirmdState.isValid && passworConfirmdState.touch ? (
+            <p className={styles.form_block_error}>{passworConfirmdState.message}</p>
+          ) : (
+            <p></p>
+          )}
         </div>
-
-        <button type="submit" disabled={
-          !nameValidator(userName.inputValue).isValid ||
-          !emailValidator(userEmail.inputValue).isValid ||
-          !passwordValidator(userPassword.inputValue).isValid ||
-          !passwordConfirmValidator(userPasswordConfirm).isValid  
-          }>회원가입</button>
-  
-          <button type='button' name='google' className='form_btn--google' onClick={onClickSocialLogin}>Google로 회원가입</button>
-          <button type='button' name='github' className='form_btn--github' onClick={onClickSocialLogin}>Github로 회원가입</button>
-
+        <div className={styles.form_block}>
+          <button>회원가입</button>
+          <button className={styles.gogle_btn}>Google 계정으로 가입하기</button>
+          <button className={styles.github_btn}>GitHub 계정으로 가입하기</button>
+          <p>
+            이미 회원이신가요?
+            <Link to="/users/login"> 로그인 하기</Link>
+          </p>
+        </div>
       </form>
     </div>
-  )
-
+  );
 }
-  
- 
-export default SignupForm
+
+export default SignupForm;

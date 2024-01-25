@@ -1,8 +1,7 @@
-import { initializeApp, FirebaseApp, getApp } from "firebase/app";
-import {getFirestore} from "firebase/firestore"
+import { initializeApp, FirebaseApp, getApp } from "firebase/app"
+import { getFirestore } from "firebase/firestore"
 
-
-export let app: FirebaseApp;
+export let app: FirebaseApp
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -10,16 +9,16 @@ const firebaseConfig = {
   projectId: process.env.REACT_APP_PROJECT_ID,
   storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_ID
-};
-
-try {
-  app = getApp("app");
-} catch (e) {
-  app = initializeApp(firebaseConfig, "app");
+  appId: process.env.REACT_APP_ID,
 }
 
-const firebase = initializeApp(firebaseConfig);
-export const db = getFirestore(app);
+try {
+  app = getApp("app")
+} catch (e) {
+  app = initializeApp(firebaseConfig, "app")
+}
 
-export default firebase;
+const firebase = initializeApp(firebaseConfig)
+export const db = getFirestore(app)
+
+export default firebase
