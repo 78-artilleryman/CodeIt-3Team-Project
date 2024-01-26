@@ -1,8 +1,12 @@
-import SignupForm from 'components/Users/SignupForm'
+import Header from "components/Common/Header";
+import SignupForm from "components/Users/SignupForm";
 function SignUpPage() {
   return (
-    <SignupForm/>
-  )
+    <>
+      <Header />
+      <SignupForm />
+    </>
+  );
 }
 
-export default SignUpPage
+export default SignUpPage;
