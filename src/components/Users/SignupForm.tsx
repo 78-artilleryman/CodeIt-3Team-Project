@@ -16,29 +16,11 @@ import { useEffect, useState } from "react";
 
 function SignupForm() {
   const navigate = useNavigate();
-
-  const [password, setPassword] = useState<string>("");
-
   const nameState = useInput(value => Validation.nameValidation(value));
   const emailState = useInput(value => Validation.emailValidation(value));
   const passwordState = useInput(value => Validation.passwordValidation(value));
-  const passworConfirmdState = usePasswordInput((value, password) =>
-    Validation.passworConfirmdValidation(value, password)
-  );
 
-  // console.log(passwordState)
-  console.log(passworConfirmdState);
-
-  useEffect(() => {
-    setPassword(passwordState.value);
-  }, [passwordState]);
-
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {
-      target: { value },
-    } = e;
-    passworConfirmdState.inputChangeHandler(value, password);
-  };
+  const passwordConfirmState = useInput(value => Validation.passwordConfirmValidation(value, passwordState.value));
 
   //파이어베이스 회원가입 로직
 
@@ -94,19 +76,14 @@ function SignupForm() {
   return (
     <div className={styles.container}>
       <div className={styles.title}>
-        <h1>회원가입</h1>
+        <h2>회원가입</h2>
         <p>Studit에서 팀원을 모집 해보세요🙂</p>
       </div>
       <form onSubmit={onSubmit} className={styles.form}>
-        <div className={styles.form_block}>
-          <label
-            className={!nameState.isValid && nameState.touch ? styles.form_block_laberError : styles.form_block_label}
-            htmlFor="user_name"
-          >
-            이름
-          </label>
+        <div className={nameState.hasError ? styles.form_block_error : styles.form_block}>
+          <label>이름</label>
           <input
-            className={!nameState.isValid && nameState.touch ? styles.form_block_input_error : styles.form_block_input}
+            className={styles.form_block_input}
             id="user_name"
             placeholder="이름을 입력해주세요."
             type="text"
@@ -114,25 +91,13 @@ function SignupForm() {
             onFocus={nameState.inputFocusHandler}
             value={nameState.value}
           />
-          {!nameState.isValid && <p className={styles.form_block_error}>{nameState.message}</p>}
 
-          {/* {!nameState.isValid && nameState.touch ? (
-            <p className={styles.form_block_error}>{nameState.message}</p>
-          ) : (
-            <p></p>
-          )} */}
+          {nameState.hasError && <p>{nameState.message}</p>}
         </div>
-        <div className={styles.form_block}>
-          <label
-            className={!emailState.isValid && emailState.touch ? styles.form_block_laberError : styles.form_block_label}
-            htmlFor="user_email"
-          >
-            이메일
-          </label>
+        <div className={emailState.hasError ? styles.form_block_error : styles.form_block}>
+          <label>이메일</label>
           <input
-            className={
-              !emailState.isValid && emailState.touch ? styles.form_block_input_error : styles.form_block_input
-            }
+            className={styles.form_block_input}
             id="user_email"
             placeholder="이메일을 입력해주세요."
             type="text"
@@ -140,25 +105,12 @@ function SignupForm() {
             onFocus={emailState.inputFocusHandler}
             value={emailState.value}
           />
-          {!emailState.isValid && emailState.touch ? (
-            <p className={styles.form_block_error}>{emailState.message}</p>
-          ) : (
-            <p></p>
-          )}
+          {emailState.hasError && <p>{emailState.message}</p>}
         </div>
-        <div className={styles.form_block}>
-          <label
-            className={
-              !passwordState.isValid && passwordState.touch ? styles.form_block_laberError : styles.form_block_label
-            }
-            htmlFor="user_password"
-          >
-            비밀번호
-          </label>
+        <div className={passwordState.hasError ? styles.form_block_error : styles.form_block}>
+          <label htmlFor="user_password">비밀번호</label>
           <input
-            className={
-              !passwordState.isValid && passwordState.touch ? styles.form_block_input_error : styles.form_block_input
-            }
+            className={styles.form_block_input}
             id="user_password"
             placeholder="특수문자를 포함한 비밀번호를 입력해주세요."
             type="password"
@@ -167,41 +119,20 @@ function SignupForm() {
             onFocus={passwordState.inputFocusHandler}
           />
 
-          {!passwordState.isValid && passwordState.touch ? (
-            <p className={styles.form_block_error}>{passwordState.message}</p>
-          ) : (
-            <p></p>
-          )}
+          {passwordState.hasError && <p>{passwordState.message}</p>}
         </div>
-        <div className={styles.form_block}>
-          <label
-            className={
-              !passworConfirmdState.isValid && passworConfirmdState.touch
-                ? styles.form_block_laberError
-                : styles.form_block_label
-            }
-            htmlFor="user_password_confirm"
-          >
-            비밀번호 확인
-          </label>
+        <div className={passwordConfirmState.hasError ? styles.form_block_error : styles.form_block}>
+          <label htmlFor="user_password_confirm">비밀번호 확인</label>
           <input
-            className={
-              !passworConfirmdState.isValid && passworConfirmdState.touch
-                ? styles.form_block_input_error
-                : styles.form_block_input
-            }
+            className={styles.form_block_input}
             id="user_password_confirm"
             placeholder="비밀번호를 다시 입력해주세요"
             type="password"
-            value={passworConfirmdState.value}
-            onChange={onChange}
-            onFocus={passworConfirmdState.inputFocusHandler}
+            value={passwordConfirmState.value}
+            onChange={passwordConfirmState.inputChangeHandler}
+            onFocus={passwordConfirmState.inputFocusHandler}
           />
-          {!passworConfirmdState.isValid && passworConfirmdState.touch ? (
-            <p className={styles.form_block_error}>{passworConfirmdState.message}</p>
-          ) : (
-            <p></p>
-          )}
+          {passwordConfirmState.hasError && <p>{passwordConfirmState.message}</p>}
         </div>
         <div className={styles.form_block}>
           <button>회원가입</button>
