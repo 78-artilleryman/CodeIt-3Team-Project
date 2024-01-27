@@ -1,90 +1,95 @@
-import { app } from "firebaseApp/config"
+import { app } from "firebaseApp/config";
 import {
   createUserWithEmailAndPassword,
   getAuth,
   GoogleAuthProvider,
   GithubAuthProvider,
   signInWithPopup,
-} from "firebase/auth"
-import { Link, useNavigate } from "react-router-dom"
-import { toast } from "react-toastify"
-import useInput from "hooks/useInput"
-import usePasswordInput from "hooks/usePassword"
-import * as Validation from "utils/validator"
-import styles from "./index.module.scss"
-import { useEffect, useState } from "react"
+} from "firebase/auth";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import useInput from "hooks/useInput";
+import usePasswordInput from "hooks/usePassword";
+import * as Validation from "utils/validator";
+import styles from "./index.module.scss";
+import { useEffect, useState } from "react";
 
 function SignupForm() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const [password, setPassword] = useState<string>("")
+  const [password, setPassword] = useState<string>("");
 
-  const nameState = useInput((value) => Validation.nameValidation(value))
-  const emailState = useInput((value) => Validation.emailValidation(value))
-  const passwordState = useInput((value) => Validation.passwordValidation(value))
+  const nameState = useInput(value => Validation.nameValidation(value));
+  const emailState = useInput(value => Validation.emailValidation(value));
+  const passwordState = useInput(value => Validation.passwordValidation(value));
   const passworConfirmdState = usePasswordInput((value, password) =>
     Validation.passworConfirmdValidation(value, password)
-  )
+  );
+
+  // console.log(passwordState)
+  console.log(passworConfirmdState);
 
   useEffect(() => {
-    setPassword(passwordState.value)
-  }, [passwordState])
+    setPassword(passwordState.value);
+  }, [passwordState]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { value },
-    } = e
-    passworConfirmdState.inputChangeHandler(value, password)
-  }
+    } = e;
+    passworConfirmdState.inputChangeHandler(value, password);
+  };
 
   //파이어베이스 회원가입 로직
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      const auth = getAuth(app)
-      const { value: email } = emailState
-      const { value: password } = passwordState
+      const auth = getAuth(app);
+      const { value: email } = emailState;
+      const { value: password } = passwordState;
 
-      await createUserWithEmailAndPassword(auth, email, password)
+      await createUserWithEmailAndPassword(auth, email, password);
 
-      toast.success("회원가입에 성공했습니다.")
-      navigate("/users/login")
+      toast.success("회원가입에 성공했습니다.");
+      navigate("/users/login");
     } catch (error: any) {
-      console.log(error)
-      toast.error(error?.code)
+      console.log(error);
+      toast.error(error?.code);
     }
-  }
+  };
 
   //파이어베이스 소셜로그인 로직
   // 구글, 깃허브 중복 가입불가
   const onClickSocialLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    const buttonElement = e.target as HTMLButtonElement
+    const buttonElement = e.target as HTMLButtonElement;
 
-    const name = buttonElement.name
+    const name = buttonElement.name;
 
-    let provider
-    const auth = getAuth(app)
+    let provider;
+    const auth = getAuth(app);
 
     if (name === "google") {
-      provider = new GoogleAuthProvider()
+      provider = new GoogleAuthProvider();
     }
 
     if (name === "github") {
-      provider = new GithubAuthProvider()
+      provider = new GithubAuthProvider();
     }
 
     await signInWithPopup(auth, provider as GoogleAuthProvider | GithubAuthProvider)
-      .then((result) => {
-        console.log(result)
-        toast.success("회원가입에 성공했습니다.")
+      .then(result => {
+        console.log(result);
+        toast.success("회원가입에 성공했습니다.");
       })
-      .catch((error) => {
-        console.log(error)
-        const errorMessage = error?.message
-        toast.error("회원가입이 정상적으로 이루워지지 않았습니다.")
-      })
-  }
+      .catch(error => {
+        console.log(error);
+        const errorMessage = error?.message;
+        toast.error("회원가입이 정상적으로 이루워지지 않았습니다.");
+      });
+  };
+
+  console.log(nameState);
 
   return (
     <div className={styles.container}>
@@ -109,12 +114,13 @@ function SignupForm() {
             onFocus={nameState.inputFocusHandler}
             value={nameState.value}
           />
+          {!nameState.isValid && <p className={styles.form_block_error}>{nameState.message}</p>}
 
-          {!nameState.isValid && nameState.touch ? (
+          {/* {!nameState.isValid && nameState.touch ? (
             <p className={styles.form_block_error}>{nameState.message}</p>
           ) : (
             <p></p>
-          )}
+          )} */}
         </div>
         <div className={styles.form_block}>
           <label
@@ -208,7 +214,7 @@ function SignupForm() {
         </div>
       </form>
     </div>
-  )
+  );
 }
 
-export default SignupForm
+export default SignupForm;
