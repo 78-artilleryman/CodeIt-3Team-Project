@@ -1,9 +1,14 @@
-import React from 'react'
+import Header from "components/Common/Header";
+import LoginForm from "components/Users/LoginForm";
+import React from "react";
 
 function LoginPage() {
   return (
-    <div>LoginPage</div>
-  )
+    <>
+      <Header />
+      <LoginForm />;
+    </>
+  );
 }
 
-export default LoginPage
+export default LoginPage;
