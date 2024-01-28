@@ -32,12 +32,8 @@
   .form_block {
     display: flex;
     flex-direction: column;
-    margin: 10px auto;
+    margin: 25px auto;
     gap: 10px;
-
-    &_laberError {
-      color: red;
-    }
 
     &_input {
       padding: 16px 10px;
@@ -52,24 +48,27 @@
       &::placeholder {
         color: $placeholder;
       }
-
-      &_error {
-        @extend .form_block_input;
-        border: 1px red solid;
-      }
     }
 
     &_error {
+      @extend .form_block;
       color: $errorBorder;
-      font-size: 14px;
       font-weight: 400;
-      margin-left: 5px;
     }
 
     button {
       @extend .button;
       border-radius: 10px;
       margin-top: 10px;
+    }
+
+    .submit_btn {
+      background: #242424;
+
+      &:hover,
+      &:active {
+        background: #101010;
+      }
     }
 
     .gogle_btn {

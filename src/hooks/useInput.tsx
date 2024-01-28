@@ -15,7 +15,19 @@ export default function useInput(validator: UseInputCallbackType) {
 
   // validator 함수의 반환값이 { result: boolean; message: string; } 인 경우
   const validation = validator(inputState.value);
-  const isValid = inputState.isTouched && (!("check" in validation) || validation.check());
+
+  let result, message;
+
+  if ("result" in validation) {
+    result = validation.result;
+    message = validation.message;
+  } else {
+    result = validation.check();
+    message = validation.message;
+  }
+
+  const isValid = inputState.isTouched && result;
+  const hasError = inputState.isTouched && !result;
 
   const inputFocusHandler = () => setInputState(state => ({ ...state, isTouched: true }));
 
@@ -26,7 +38,7 @@ export default function useInput(validator: UseInputCallbackType) {
     value: inputState.value,
     isValid,
     message: validation.message,
-    touch: inputState.isTouched,
+    hasError,
     inputChangeHandler,
     inputFocusHandler,
   };
