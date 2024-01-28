@@ -1,102 +1,116 @@
-@import "index";
+@import "styles/constants.scss";
 
 .container {
+  margin-top: 50px;
+  color: $black;
   display: flex;
-  flex-direction: column;
-  margin-top: 5vh;
-  align-items: center;
+  justify-content: center;
 }
 
-.title {
-  text-align: center;
-  color: $black;
-  font-style: normal;
-  line-height: normal;
-
-  h1 {
-    font-weight: 700;
-    font-size: 30px;
-  }
-
-  p {
-    font-weight: 500;
-    font-size: 16px;
-  }
-}
-.form {
-  font-size: 16px;
-  color: $black;
-  font-weight: 500;
+.form_section {
   width: 414px;
 
-  .form_block {
-    display: flex;
-    flex-direction: column;
-    margin: 10px auto;
-    gap: 10px;
+  &__header {
+    text-align: center;
+    h2 {
+      font-weight: 700;
+      font-size: 30px;
+    }
+    p {
+      font-weight: 500;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+  }
+}
 
-    &_laberError {
+.input_layout {
+  label,
+  input {
+    display: block;
+  }
+
+  &__label {
+    font-weight: 500;
+  }
+
+  &.invalid {
+    .input_layout__label,
+    .input_error {
       color: red;
     }
 
-    &_input {
-      padding: 16px 10px;
-      border-radius: 10px;
-      border: 1px solid $border;
+    .input_layout__input {
+      border-color: $errorBorder;
+    }
+  }
 
-      &:focus {
-        border: 1px solid #000;
-        outline: none;
-      }
+  &__input {
+    margin-top: 5px;
+    width: 100%;
+    height: 56px;
+    border-radius: 10px;
+    border: 1px solid $border;
+    padding: 0 10px;
+    transition: 0.2s;
 
-      &::placeholder {
-        color: $placeholder;
-      }
-
-      &_error {
-        @extend .form_block_input;
-        border: 1px red solid;
-      }
+    &:focus {
+      border-color: $activeButton;
     }
 
-    &_error {
-      color: $errorBorder;
-      font-size: 14px;
-      font-weight: 400;
-      margin-left: 5px;
+    &::placeholder {
+      color: #7f7f7f;
     }
+  }
 
-    button {
-      @extend .button;
-      border-radius: 10px;
+  & + & {
+    margin-top: 20px;
+  }
+}
+
+.button_lists {
+  margin-top: 30px;
+
+  &__item {
+    width: 100%;
+    height: 56px;
+    color: #fff;
+
+    & + & {
       margin-top: 10px;
     }
+  }
 
-    .gogle_btn {
-      background-color: #e94d4d;
+  .form_button {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    color: #fff;
 
-      &:active,
-      &:hover {
-        background-color: #ec1b1b;
-      }
+    &:disabled {
+      background-color: #ccc;
     }
-    .github_btn {
-      background-color: #2b2b2b;
+  }
 
-      &:active,
-      &:hover {
-        background-color: $black;
-      }
-    }
+  .submit_button {
+    background-color: #242424;
+  }
 
-    p {
-      font-size: 14px;
+  .google_button {
+    background-color: #e94d4d;
+  }
 
-      a {
-        font-weight: 700;
-        color: #000;
-        text-decoration: none;
-      }
-    }
+  .github__button {
+    background-color: #2b2b2b;
+  }
+}
+
+.linkTo {
+  font-size: 14px;
+  display: block;
+  margin-top: 10px;
+
+  a {
+    font-weight: 700;
   }
 }

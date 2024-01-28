@@ -11,7 +11,7 @@ function Header() {
             <img src="" alt="logo" />
           </div>
         </Link>
-        <div className={styles.nav}>
+        <nav className={styles.nav}>
           <Link to="/myPage">
             <div className={styles.link}>내 정보</div>
           </Link>
@@ -27,7 +27,7 @@ function Header() {
           <Link to="/setting">
             <div className={styles.link}>내 정보수정</div>
           </Link>
-        </div>
+        </nav>
       </header>
     </>
   );
