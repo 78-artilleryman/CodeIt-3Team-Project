@@ -87,84 +87,119 @@ function SignupForm() {
 
   console.log(nameState);
 
+  /**
+   * form
+   * input_layout
+   * input_layout__invalid
+   *
+   * input_layout__username
+   */
+
   return (
-    <div className={styles.container}>
-      <div className={styles.title}>
-        <h2>회원가입</h2>
-        <p>Studit에서 팀원을 모집 해보세요🙂</p>
-      </div>
-      <form onSubmit={onSubmit} className={styles.form}>
-        <div className={nameState.hasError ? styles.form_block_error : styles.form_block}>
-          <label>이름</label>
-          <input
-            className={styles.form_block_input}
-            id="user_name"
-            placeholder="이름을 입력해주세요."
-            type="text"
-            onChange={nameState.inputChangeHandler}
-            onFocus={nameState.inputFocusHandler}
-            value={nameState.value}
-          />
+    <main className={styles.container}>
+      <section className={styles.form_section}>
+        <div className={styles.form_section__header}>
+          <h2>회원가입</h2>
+          <p>Studit에서 팀원을 모집 해보세요🙂</p>
+        </div>
 
-          {nameState.hasError && <p>{nameState.message}</p>}
-        </div>
-        <div className={emailState.hasError ? styles.form_block_error : styles.form_block}>
-          <label>이메일</label>
-          <input
-            className={styles.form_block_input}
-            id="user_email"
-            placeholder="이메일을 입력해주세요."
-            type="text"
-            onChange={emailState.inputChangeHandler}
-            onFocus={emailState.inputFocusHandler}
-            value={emailState.value}
-          />
-          {emailState.hasError && <p>{emailState.message}</p>}
-        </div>
-        <div className={passwordState.hasError ? styles.form_block_error : styles.form_block}>
-          <label htmlFor="user_password">비밀번호</label>
-          <input
-            className={styles.form_block_input}
-            id="user_password"
-            placeholder="특수문자를 포함한 비밀번호를 입력해주세요."
-            type="password"
-            value={passwordState.value}
-            onChange={passwordState.inputChangeHandler}
-            onFocus={passwordState.inputFocusHandler}
-          />
+        <form onSubmit={onSubmit} className={styles.form}>
+          <div className={`${styles.input_layout}`}>
+            <label className={styles.input_layout__label} htmlFor="user_name">
+              이름
+            </label>
+            <input
+              className={styles.input_layout__input}
+              id="user_name"
+              placeholder="이름을 입력해주세요."
+              type="text"
+              onChange={nameState.inputChangeHandler}
+              onFocus={nameState.inputFocusHandler}
+              value={nameState.value}
+            />
 
-          {passwordState.hasError && <p>{passwordState.message}</p>}
-        </div>
-        <div className={passwordConfirmState.hasError ? styles.form_block_error : styles.form_block}>
-          <label htmlFor="user_password_confirm">비밀번호 확인</label>
-          <input
-            className={styles.form_block_input}
-            id="user_password_confirm"
-            placeholder="비밀번호를 다시 입력해주세요"
-            type="password"
-            value={passwordConfirmState.value}
-            onChange={passwordConfirmState.inputChangeHandler}
-            onFocus={passwordConfirmState.inputFocusHandler}
-          />
-          {passwordConfirmState.hasError && <p>{passwordConfirmState.message}</p>}
-        </div>
-        <div className={styles.form_block}>
-          <button type="submit" disabled={submitBtnState} className={!submitBtnState ? styles.submit_btn : ""}>
-            회원가입
-          </button>
-          <button className={styles.gogle_btn} onClick={onClickSocialLogin} name="google">
-            Google 계정으로 가입하기
-          </button>
-          <button className={styles.github_btn} onClick={onClickSocialLogin} name="github">
-            GitHub 계정으로 가입하기
-          </button>
-          <p>
-            이미 회원이신가요?
-            <Link to="/users/login"> 로그인 하기</Link>
-          </p>
-        </div>
-      </form>
-    </div>
+            {nameState.hasError && <p className={styles.input_error}>{nameState.message}</p>}
+          </div>
+          <div className={`${styles.input_layout}`}>
+            <label className={styles.input_layout__label} htmlFor="user_email">
+              이메일
+            </label>
+            <input
+              className={styles.input_layout__input}
+              id="user_email"
+              placeholder="이메일을 입력해주세요."
+              type="text"
+              onChange={emailState.inputChangeHandler}
+              onFocus={emailState.inputFocusHandler}
+              value={emailState.value}
+            />
+            {emailState.hasError && <p className={styles.input_error}>{emailState.message}</p>}
+          </div>
+          <div className={`${styles.input_layout}`}>
+            <label className={styles.input_layout__label} htmlFor="user_password">
+              비밀번호
+            </label>
+            <input
+              className={styles.input_layout__input}
+              id="user_password"
+              placeholder="특수문자를 포함한 비밀번호를 입력해주세요."
+              type="password"
+              value={passwordState.value}
+              onChange={passwordState.inputChangeHandler}
+              onFocus={passwordState.inputFocusHandler}
+            />
+            {passwordState.hasError && <p className={styles.input_error}>{passwordState.message}</p>}
+          </div>
+          <div className={`${styles.input_layout}`}>
+            <label className={styles.input_layout__label} htmlFor="user_password_confirm">
+              비밀번호 확인
+            </label>
+            <input
+              className={styles.input_layout__input}
+              id="user_password_confirm"
+              placeholder="비밀번호를 다시 입력해주세요"
+              type="password"
+              value={passwordConfirmState.value}
+              onChange={passwordConfirmState.inputChangeHandler}
+              onFocus={passwordConfirmState.inputFocusHandler}
+            />
+            {passwordConfirmState.hasError && <p>{passwordConfirmState.message}</p>}
+          </div>
+          <ul className={styles.button_lists}>
+            <li className={styles.button_lists__item}>
+              <button
+                type="submit"
+                disabled={submitBtnState}
+                className={`${!submitBtnState ? styles.submit_btn : ""} ${styles.submit_button} ${styles.form_button}`}
+              >
+                회원가입
+              </button>
+            </li>
+            <li className={styles.button_lists__item}>
+              <button
+                className={`${styles.google_button} ${styles.form_button}`}
+                onClick={onClickSocialLogin}
+                name="google"
+              >
+                Google 계정으로 가입하기
+              </button>
+            </li>
+            <li className={styles.button_lists__item}>
+              <button
+                className={`${styles.github__button} ${styles.form_button}`}
+                onClick={onClickSocialLogin}
+                name="github"
+              >
+                GitHub 계정으로 가입하기
+              </button>
+            </li>
+          </ul>
+          <span className={styles.linkTo}>
+            이미 회원이신가요? <Link to="/users/login"> 로그인 하기</Link>
+          </span>
+        </form>
+      </section>
+    </main>
   );
 }
 
