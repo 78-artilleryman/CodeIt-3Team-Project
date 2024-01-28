@@ -63,3 +63,12 @@ export const passwordConfirmValidation = (value: string, password: string) => {
   // 배열에서 첫 번째 실패한 검증을 찾거나 모든 검증이 통과하면 성공 메시지 반환
   return validations.find(validation => !validation.check()) || { result: true, message: "" };
 };
+
+// 비밀번호 유효성 검사 함수
+export const loginPasswordValidation = (value: string) => {
+  // 검증 사항 배열 정의
+  const validations = [{ check: () => isNotEmpty(value), message: "비밀번호를 입력해주세요." }];
+
+  // 배열에서 첫 번째 실패한 검증을 찾거나 모든 검증이 통과하면 성공 메시지 반환
+  return validations.find(validation => !validation.check()) || { result: true, message: "" };
+};
