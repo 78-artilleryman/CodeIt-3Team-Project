@@ -1,5 +1,7 @@
+import Header from "components/Common/Header";
 import PostBox from "components/Posts/PostBox";
 import React from "react";
+import styles from "./Home.module.scss";
 
 const testData = [
   {
@@ -70,19 +72,49 @@ const testData = [
 
 function HomePage() {
   return (
-    <div>
-      {testData.map(data => (
-        <PostBox
-          postType={data.postType}
-          postTitle={data.postTitle}
-          postSubTitle={data.postSubTitle}
-          stacks={data.stacks}
-          uid={data.uid}
-          createdAt={data.createdAt}
-          postDeadline={data.postDeadline}
-        />
-      ))}
-    </div>
+    <main className={styles.container}>
+      <Header />
+      <section className={styles.section}>
+        <select className={styles.selectBox}>
+          <option selected disabled hidden>
+            🗂 스터디 종류
+          </option>
+          <option>스터디</option>
+          <option>프로젝트</option>
+        </select>
+        <select className={styles.selectBox}>
+          <option selected disabled hidden>
+            📚 기술스택
+          </option>
+        </select>
+        <select className={styles.selectBox}>
+          <option selected disabled hidden>
+            ⏰ 스터디 횟수
+          </option>
+          <option>1회</option>
+          <option>2회</option>
+          <option>3회</option>
+          <option>4회</option>
+          <option>5회</option>
+          <option>6회</option>
+          <option>7회</option>
+          <option>횟수협의</option>
+        </select>
+      </section>
+      <section className={styles.section}>
+        {testData.map(data => (
+          <PostBox
+            postType={data.postType}
+            postTitle={data.postTitle}
+            postSubTitle={data.postSubTitle}
+            stacks={data.stacks}
+            uid={data.uid}
+            createdAt={data.createdAt}
+            postDeadline={data.postDeadline}
+          />
+        ))}
+      </section>
+    </main>
   );
 }
 
