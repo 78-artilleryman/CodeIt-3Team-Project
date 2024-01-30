@@ -40,6 +40,10 @@
       color: red;
     }
 
+    .input_error {
+      margin-top: 5px;
+    }
+
     .input_layout__input {
       border-color: $errorBorder;
     }
@@ -86,14 +90,14 @@
     height: 100%;
     border-radius: 10px;
     color: #fff;
-
-    &:disabled {
-      background-color: #ccc;
-    }
   }
 
   .submit_button {
     background-color: #242424;
+
+    &:disabled {
+      background-color: #ccc;
+    }
   }
 
   .google_button {

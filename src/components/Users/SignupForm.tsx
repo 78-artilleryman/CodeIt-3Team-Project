@@ -14,27 +14,18 @@ import * as Validation from "utils/validator";
 import styles from "./index.module.scss";
 import { useEffect, useState } from "react";
 
+let formIsValid: boolean = false;
+
 function SignupForm() {
   const navigate = useNavigate();
   const nameState = useInput(value => Validation.nameValidation(value));
   const emailState = useInput(value => Validation.emailValidation(value));
   const passwordState = useInput(value => Validation.passwordValidation(value));
-
   const passwordConfirmState = useInput(value => Validation.passwordConfirmValidation(value, passwordState.value));
+
   const [submitBtnState, setSubmitBtnState] = useState<boolean>(true);
 
-  useEffect(() => {
-    const { isValid: name } = nameState;
-    const { isValid: email } = emailState;
-    const { isValid: password } = passwordState;
-    const { isValid: passwordConfirm } = passwordConfirmState;
-
-    if (name && email && password && passwordConfirm) {
-      setSubmitBtnState(false);
-    } else {
-      setSubmitBtnState(true);
-    }
-  }, [nameState.isValid, emailState.isValid, passwordState.isValid, passwordConfirmState.isValid]);
+  formIsValid = nameState.isValid && emailState.isValid && passwordState.isValid && passwordConfirmState.isValid;
 
   //파이어베이스 회원가입 로직
 
@@ -85,16 +76,6 @@ function SignupForm() {
     }
   };
 
-  console.log(nameState);
-
-  /**
-   * form
-   * input_layout
-   * input_layout__invalid
-   *
-   * input_layout__username
-   */
-
   return (
     <main className={styles.container}>
       <section className={styles.form_section}>
@@ -104,7 +85,7 @@ function SignupForm() {
         </div>
 
         <form onSubmit={onSubmit} className={styles.form}>
-          <div className={`${styles.input_layout}`}>
+          <div className={`${styles.input_layout} ${nameState.hasError && styles.invalid}`}>
             <label className={styles.input_layout__label} htmlFor="user_name">
               이름
             </label>
@@ -117,10 +98,9 @@ function SignupForm() {
               onFocus={nameState.inputFocusHandler}
               value={nameState.value}
             />
-
             {nameState.hasError && <p className={styles.input_error}>{nameState.message}</p>}
           </div>
-          <div className={`${styles.input_layout}`}>
+          <div className={`${styles.input_layout} ${emailState.hasError && styles.invalid}`}>
             <label className={styles.input_layout__label} htmlFor="user_email">
               이메일
             </label>
@@ -135,7 +115,7 @@ function SignupForm() {
             />
             {emailState.hasError && <p className={styles.input_error}>{emailState.message}</p>}
           </div>
-          <div className={`${styles.input_layout}`}>
+          <div className={`${styles.input_layout} ${passwordState.hasError && styles.invalid}`}>
             <label className={styles.input_layout__label} htmlFor="user_password">
               비밀번호
             </label>
@@ -150,7 +130,7 @@ function SignupForm() {
             />
             {passwordState.hasError && <p className={styles.input_error}>{passwordState.message}</p>}
           </div>
-          <div className={`${styles.input_layout}`}>
+          <div className={`${styles.input_layout} ${passwordConfirmState.hasError && styles.invalid}`}>
             <label className={styles.input_layout__label} htmlFor="user_password_confirm">
               비밀번호 확인
             </label>
@@ -163,15 +143,11 @@ function SignupForm() {
               onChange={passwordConfirmState.inputChangeHandler}
               onFocus={passwordConfirmState.inputFocusHandler}
             />
-            {passwordConfirmState.hasError && <p>{passwordConfirmState.message}</p>}
+            {passwordConfirmState.hasError && <p className={styles.input_error}>{passwordConfirmState.message}</p>}
           </div>
           <ul className={styles.button_lists}>
             <li className={styles.button_lists__item}>
-              <button
-                type="submit"
-                disabled={submitBtnState}
-                className={`${!submitBtnState ? styles.submit_btn : ""} ${styles.submit_button} ${styles.form_button}`}
-              >
+              <button type="submit" disabled={!formIsValid} className={`${styles.submit_button} ${styles.form_button}`}>
                 회원가입
               </button>
             </li>
