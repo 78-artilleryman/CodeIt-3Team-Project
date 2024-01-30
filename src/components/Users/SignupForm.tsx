@@ -12,7 +12,6 @@ import { toast } from "react-toastify";
 import useInput from "hooks/useInput";
 import * as Validation from "utils/validator";
 import styles from "./index.module.scss";
-import { useEffect, useState } from "react";
 
 let formIsValid: boolean = false;
 
@@ -23,12 +22,9 @@ function SignupForm() {
   const passwordState = useInput(value => Validation.passwordValidation(value));
   const passwordConfirmState = useInput(value => Validation.passwordConfirmValidation(value, passwordState.value));
 
-  const [submitBtnState, setSubmitBtnState] = useState<boolean>(true);
-
   formIsValid = nameState.isValid && emailState.isValid && passwordState.isValid && passwordConfirmState.isValid;
 
   //파이어베이스 회원가입 로직
-
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
@@ -38,6 +34,25 @@ function SignupForm() {
 
       // 회원가입 후 유저정보 저장
       const { user } = await createUserWithEmailAndPassword(auth, email, password);
+
+      // 유저 이름 저장
+      await updateProfile(user, { displayName: nameState.value });
+      toast.success("회원가입 성공 후 로그인 되었습니다.");
+      navigate("/");
+    } catch (error: any) {
+      console.log(error);
+      toast.error("회원가입이 정상적으로 이루워지지 않았습니다.");
+    }
+  };
+
+  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      if (!formIsValid) throw new Error("이름, 이메일, 비밀번호 값이 올바르지 않아요");
+      const auth = getAuth(app);
+      // 회원가입 후 유저정보 저장
+      const { user } = await createUserWithEmailAndPassword(auth, emailState.value, passwordState.value);
 
       // 유저 이름 저장
       await updateProfile(user, { displayName: nameState.value });
@@ -84,7 +99,7 @@ function SignupForm() {
           <p>Studit에서 팀원을 모집 해보세요🙂</p>
         </div>
 
-        <form onSubmit={onSubmit} className={styles.form}>
+        <form onSubmit={submitHandler} className={styles.form}>
           <div className={`${styles.input_layout} ${nameState.hasError && styles.invalid}`}>
             <label className={styles.input_layout__label} htmlFor="user_name">
               이름
