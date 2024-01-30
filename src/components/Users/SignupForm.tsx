@@ -13,6 +13,15 @@ import useInput from "hooks/useInput";
 import * as Validation from "utils/validator";
 import styles from "./index.module.scss";
 
+interface SocialLoginMapping {
+  [index: string]: GoogleAuthProvider | GithubAuthProvider;
+}
+
+const socialLoginMapping: SocialLoginMapping = {
+  google: new GoogleAuthProvider(),
+  github: new GithubAuthProvider(),
+};
+
 let formIsValid: boolean = false;
 
 function SignupForm() {
@@ -25,64 +34,37 @@ function SignupForm() {
   formIsValid = nameState.isValid && emailState.isValid && passwordState.isValid && passwordConfirmState.isValid;
 
   //파이어베이스 회원가입 로직
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      const auth = getAuth(app);
-      const { value: email } = emailState;
-      const { value: password } = passwordState;
-
-      // 회원가입 후 유저정보 저장
-      const { user } = await createUserWithEmailAndPassword(auth, email, password);
-
-      // 유저 이름 저장
-      await updateProfile(user, { displayName: nameState.value });
-      toast.success("회원가입 성공 후 로그인 되었습니다.");
-      navigate("/");
-    } catch (error: any) {
-      console.log(error);
-      toast.error("회원가입이 정상적으로 이루워지지 않았습니다.");
-    }
-  };
-
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     try {
       if (!formIsValid) throw new Error("이름, 이메일, 비밀번호 값이 올바르지 않아요");
       const auth = getAuth(app);
       // 회원가입 후 유저정보 저장
       const { user } = await createUserWithEmailAndPassword(auth, emailState.value, passwordState.value);
-
       // 유저 이름 저장
       await updateProfile(user, { displayName: nameState.value });
       toast.success("회원가입 성공 후 로그인 되었습니다.");
       navigate("/");
     } catch (error: any) {
       console.log(error);
+      if (error instanceof Error) return toast.error(error.message);
       toast.error("회원가입이 정상적으로 이루워지지 않았습니다.");
     }
   };
 
   //파이어베이스 소셜로그인 로직
   // 구글, 깃허브 중복 가입불가
-  const onClickSocialLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
+
+  const socialLoginHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const buttonElement = e.target as HTMLButtonElement;
     const name = buttonElement.name;
-    let provider;
 
-    if (name === "google") {
-      provider = new GoogleAuthProvider();
-    }
-
-    if (name === "github") {
-      provider = new GithubAuthProvider();
-    }
+    const provider = socialLoginMapping[name];
 
     try {
       const auth = getAuth(app);
-      const { user } = await signInWithPopup(auth, provider as GoogleAuthProvider | GithubAuthProvider);
+      const { user } = await signInWithPopup(auth, provider);
       console.log(user);
       toast.success("회원가입 후 로그인 되었습니다.");
     } catch (error: any) {
@@ -169,7 +151,7 @@ function SignupForm() {
             <li className={styles.button_lists__item}>
               <button
                 className={`${styles.google_button} ${styles.form_button}`}
-                onClick={onClickSocialLogin}
+                onClick={socialLoginHandler}
                 name="google"
               >
                 Google 계정으로 가입하기
@@ -178,7 +160,7 @@ function SignupForm() {
             <li className={styles.button_lists__item}>
               <button
                 className={`${styles.github__button} ${styles.form_button}`}
-                onClick={onClickSocialLogin}
+                onClick={socialLoginHandler}
                 name="github"
               >
                 GitHub 계정으로 가입하기
