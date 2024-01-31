@@ -1,0 +1,23 @@
+@import "styles/constants.scss";
+
+.nav_layout {
+  display: flex;
+  align-items: center;
+  column-gap: 20px;
+
+  a {
+    display: block;
+  }
+
+  &__item {
+    font-size: 16px;
+    font-weight: 500;
+
+    &.box_style a {
+      padding: 5px 15px;
+      background-color: $black;
+      border-radius: 50px;
+      color: white;
+    }
+  }
+}
