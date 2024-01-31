@@ -1,0 +1,22 @@
+@import "styles/constants.scss";
+
+.container {
+  margin-top: 50px;
+  color: $black;
+  display: flex;
+  justify-content: center;
+}
+
+.form_section {
+  width: 414px;
+}
+
+.linkTo {
+  font-size: 14px;
+  display: block;
+  margin-top: 10px;
+
+  a {
+    font-weight: 700;
+  }
+}

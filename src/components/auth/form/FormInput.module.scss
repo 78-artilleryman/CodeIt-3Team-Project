@@ -1,0 +1,50 @@
+@import "styles/constants.scss";
+
+.input_layout {
+  label,
+  input {
+    display: block;
+  }
+
+  &__label {
+    font-weight: 500;
+  }
+
+  &.invalid {
+    .input_layout__label,
+    .input_error {
+      color: red;
+    }
+
+    .input_error {
+      margin-top: 10px;
+    }
+
+    .input_layout__input {
+      border-color: $errorBorder;
+    }
+  }
+
+  &__input {
+    margin-top: 5px;
+    width: 100%;
+    height: 56px;
+    border-radius: 10px;
+    border: 1px solid $border;
+    padding: 0 10px;
+    transition: 0.2s;
+    font-size: 16px;
+
+    &:focus {
+      border-color: $activeButton;
+    }
+
+    &::placeholder {
+      color: #7f7f7f;
+    }
+  }
+
+  & + & {
+    margin-top: 20px;
+  }
+}
