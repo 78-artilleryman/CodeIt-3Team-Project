@@ -2,6 +2,9 @@ import Header from "components/Common/Header";
 import PostBox from "components/Posts/PostBox";
 import React from "react";
 import styles from "./Home.module.scss";
+import Stack from "components/Common/Stack";
+import SelectBox from "components/SelectBox/SelectBox";
+import * as selectData from "components/SelectBox/data";
 
 const testData = [
   {
@@ -68,6 +71,24 @@ const testData = [
     createdAt: "2024. 1. 17. 오후 11:03:02",
     postDeadline: "2024. 1. 21",
   },
+  {
+    postType: "프로젝트",
+    postTitle: "벨로그 클론코딩 모집합니다.",
+    postSubTitle: "코드잇 3팀과 함께 할 스터디원 2명 구합니다.! 열정만 있으면 됩니다.",
+    stacks: ["typescript", "javascript", "nextjs", "react"],
+    uid: "ywy040150",
+    createdAt: "2024. 1. 17. 오후 11:03:02",
+    postDeadline: "2024. 1. 21",
+  },
+  {
+    postType: "프로젝트",
+    postTitle: "벨로그 클론코딩 모집합니다.",
+    postSubTitle: "코드잇 3팀과 함께 할 스터디원 2명 구합니다.! 열정만 있으면 됩니다.",
+    stacks: ["typescript", "javascript", "nextjs", "react"],
+    uid: "ywy040150",
+    createdAt: "2024. 1. 17. 오후 11:03:02",
+    postDeadline: "2024. 1. 21",
+  },
 ];
 
 function HomePage() {
@@ -75,31 +96,24 @@ function HomePage() {
     <main className={styles.container}>
       <Header />
       <section className={styles.section}>
-        <select className={styles.selectBox}>
-          <option selected disabled hidden>
-            🗂 스터디 종류
-          </option>
-          <option>스터디</option>
-          <option>프로젝트</option>
-        </select>
-        <select className={styles.selectBox}>
-          <option selected disabled hidden>
-            📚 기술스택
-          </option>
-        </select>
-        <select className={styles.selectBox}>
-          <option selected disabled hidden>
-            ⏰ 스터디 횟수
-          </option>
-          <option>1회</option>
-          <option>2회</option>
-          <option>3회</option>
-          <option>4회</option>
-          <option>5회</option>
-          <option>6회</option>
-          <option>7회</option>
-          <option>횟수협의</option>
-        </select>
+        <SelectBox
+          title={selectData.classification.title}
+          position={"bottom"}
+          size={"large"}
+          list={selectData.classification.list}
+        />
+        <SelectBox
+          title={selectData.studyCount.title}
+          position={"bottom"}
+          size={"large"}
+          list={selectData.studyCount.list}
+        />{" "}
+        <SelectBox
+          title={selectData.studyCount.title}
+          position={"bottom"}
+          size={"large"}
+          list={selectData.studyCount.list}
+        />
       </section>
       <section className={styles.section}>
         {testData.map(data => (

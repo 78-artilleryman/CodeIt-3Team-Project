@@ -9,16 +9,3 @@
   flex-wrap: wrap;
   gap: 20px;
 }
-
-.selectBox {
-  width: 130px;
-  color: #000;
-  font-size: 14px;
-  font-weight: 500;
-  padding: 8px 35px 8px 10px;
-  border-radius: 10px;
-  -webkit-appearance: none; /* for chrome */
-  -moz-appearance: none; /*for firefox*/
-  appearance: none;
-  background: url("../../../public/Icon/ChevronDown.png") no-repeat 94% 50%/15px auto;
-}
