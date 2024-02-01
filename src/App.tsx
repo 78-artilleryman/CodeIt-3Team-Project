@@ -22,6 +22,7 @@ function App() {
       setInit(true);
     });
   }, [auth]);
+
   return (
     <LayOut>
       <ToastContainer />
