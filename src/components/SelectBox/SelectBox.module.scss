@@ -1,0 +1,35 @@
+.select-container {
+  width: 120px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid #dedede;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.dropdown {
+  border-radius: 10px;
+  border: 1px solid #dedede;
+  position: absolute;
+  top: calc(100% + 20px);
+  width: 100%;
+  padding: 20px 0;
+  background-color: white;
+}
+
+.listItem {
+  color: #ccc;
+  text-align: center;
+  width: 100%;
+
+  &:hover {
+    color: #000;
+  }
+
+  & + & {
+    margin-top: 20px;
+  }
+}
