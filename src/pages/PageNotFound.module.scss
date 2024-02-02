@@ -5,24 +5,35 @@
   position: relative;
   width: 100vw;
   height: calc(100vh - 76px);
-  text-align: center;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  .descriptionContent,
+  .imageContent {
+    width: calc(50% - 10px);
+  }
 }
 
 .description {
   font-size: 24px;
   color: #1e1e1e;
   line-height: 1.5;
-}
 
-.container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  strong {
+    font-weight: 700;
+  }
 }
 
 .linkTo {
-  margin: 20px auto 0 auto;
+  margin-top: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -33,4 +44,9 @@
   color: $white;
   background-color: #1e1e1e;
   border-radius: 10px;
+}
+
+.imageContent {
+  text-align: center;
+  font-size: 10vw;
 }
