@@ -1,4 +1,4 @@
-.select-container {
+.selectContainer {
   width: 120px;
   height: 36px;
   border-radius: 10px;
@@ -14,10 +14,17 @@
   border-radius: 10px;
   border: 1px solid #dedede;
   position: absolute;
-  top: calc(100% + 20px);
+  top: calc(100% + 10px);
   width: 100%;
   padding: 20px 0;
+  left: 0;
   background-color: white;
+}
+
+.top {
+  display: flex;
+  flex-direction: column-reverse;
+  top: calc(100% + -380px);
 }
 
 .listItem {
@@ -28,8 +35,16 @@
   &:hover {
     color: #000;
   }
+}
 
+.list-bottom {
   & + & {
     margin-top: 20px;
+  }
+}
+
+.list-top {
+  & + & {
+    margin-bottom: 20px;
   }
 }

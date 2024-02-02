@@ -1,9 +1,12 @@
-import React from 'react'
+import PostForm from "components/Posts/PostForm";
+import React from "react";
 
 function PostWritePage() {
   return (
-    <div>PostWritePage</div>
-  )
+    <>
+      <PostForm />
+    </>
+  );
 }
 
-export default PostWritePage
+export default PostWritePage;
