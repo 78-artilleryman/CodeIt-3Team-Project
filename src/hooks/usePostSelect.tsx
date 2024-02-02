@@ -1,6 +1,6 @@
 import { useState, MouseEvent } from "react";
 
-function useSelect() {
+function usePostSelect() {
   const [isSelectOpen, setIsSelectOpen] = useState(false);
   const [selected, setSelected] = useState("");
 
@@ -21,4 +21,4 @@ function useSelect() {
   };
 }
 
-export default useSelect;
+export default usePostSelect;

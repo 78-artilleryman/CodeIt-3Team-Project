@@ -3,7 +3,7 @@ import PostBox from "components/Posts/PostBox";
 import React from "react";
 import styles from "./Home.module.scss";
 import Stack from "components/Common/Stack";
-import SelectBox from "components/SelectBox/SelectBox";
+import SelectBox from "components/SelectBox/FilterSelect";
 import * as selectData from "components/SelectBox/data";
 
 const testData = [
@@ -96,24 +96,9 @@ function HomePage() {
     <main className={styles.container}>
       <Header />
       <section className={styles.section}>
-        <SelectBox
-          title={selectData.classification.title}
-          position={"bottom"}
-          size={"large"}
-          list={selectData.classification.list}
-        />
-        <SelectBox
-          title={selectData.studyCount.title}
-          position={"bottom"}
-          size={"large"}
-          list={selectData.studyCount.list}
-        />{" "}
-        <SelectBox
-          title={selectData.studyCount.title}
-          position={"bottom"}
-          size={"large"}
-          list={selectData.studyCount.list}
-        />
+        <SelectBox title={selectData.classification.title} position={"bottom"} list={selectData.classification.list} />
+        <SelectBox title={selectData.studyCount.title} position={"bottom"} list={selectData.studyCount.list} />
+        <SelectBox title={selectData.studyCount.title} position={"bottom"} list={selectData.studyCount.list} />
       </section>
       <section className={styles.section}>
         {testData.map(data => (
