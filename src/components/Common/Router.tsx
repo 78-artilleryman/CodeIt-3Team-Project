@@ -1,4 +1,5 @@
 import { Chatting, Home, PageNotFound, Posts, Profile, RootPage, Users } from "pages";
+import { HomePage } from "pages/Home";
 import React from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 
@@ -12,6 +13,7 @@ function Router({ isAuthenticated }: RouterProps) {
       {isAuthenticated ? (
         <React.Fragment>
           <Route path="/" element={<RootPage />}>
+            <Route index element={<HomePage />} />
             <Route path="posts/:id" element={<Posts.PostDetailPage />}></Route>
             <Route path="posts/edit/:id" element={<Posts.PostEditPage />}></Route>
             <Route path="posts/write" element={<Posts.PostWritePage />}></Route>
@@ -24,6 +26,7 @@ function Router({ isAuthenticated }: RouterProps) {
       ) : (
         <React.Fragment>
           <Route path="/" element={<RootPage />}>
+            <Route index element={<HomePage />} />
             <Route path="intro" element={<Home.IntroPage />}></Route>
             <Route path="login" element={<Users.LoginPage />}></Route>
             <Route path="signup" element={<Users.SignUpPage />}></Route>
