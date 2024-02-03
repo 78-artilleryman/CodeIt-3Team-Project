@@ -8,10 +8,10 @@ function NavBar() {
     <nav>
       <ul className={styles.nav_layout}>
         <li className={`${styles.nav_layout__item}`}>
-          <Link to="/writeStudy">스터디 모집하기</Link>
+          <Link to="/posts/write">스터디 모집하기</Link>
         </li>
         <li className={`${styles.nav_layout__item} ${styles.box_style}`}>
-          <Link to="/signIn">로그인</Link>
+          <Link to="/login">로그인</Link>
         </li>
         {/* <li>
 			<Link to="/myPage">내 정보</Link>
