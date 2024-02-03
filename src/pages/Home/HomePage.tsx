@@ -94,7 +94,6 @@ const testData = [
 function HomePage() {
   return (
     <main className={styles.container}>
-      <Header />
       <section className={styles.section}>
         <SelectBox title={selectData.classification.title} position={"bottom"} list={selectData.classification.list} />
         <SelectBox title={selectData.studyCount.title} position={"bottom"} list={selectData.studyCount.list} />
