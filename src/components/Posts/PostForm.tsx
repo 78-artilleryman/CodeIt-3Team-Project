@@ -3,7 +3,7 @@ import * as selectData from "components/SelectBox/data";
 import React, { useState } from "react";
 
 function PostForm() {
-  const [title, setTitle] = useState<string>();
+  const [title, setTitle] = useState<string>("");
 
   console.log(title);
   const onChange = (value: string) => {
