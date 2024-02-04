@@ -20,6 +20,8 @@ function Router({ isAuthenticated }: RouterProps) {
             <Route path="profile/edit" element={<Profile.UserDataPage />}></Route>
             <Route path="profile/myPage" element={<Profile.MyPage />}></Route>
             <Route path="chatting" element={<Chatting.ChattingPage />}></Route>
+            <Route path="login" element={<Users.LoginPage />}></Route>
+            <Route path="signup" element={<Users.SignUpPage />}></Route>
           </Route>
           <Route path="*" element={<Navigate replace to={`/`} />} />
         </React.Fragment>
@@ -28,8 +30,7 @@ function Router({ isAuthenticated }: RouterProps) {
           <Route path="/" element={<RootPage />}>
             <Route index element={<HomePage />} />
             <Route path="intro" element={<Home.IntroPage />}></Route>
-            <Route path="login" element={<Users.LoginPage />}></Route>
-            <Route path="signup" element={<Users.SignUpPage />}></Route>
+
             {/* <Route path="*" element={<Navigate replace to={`/login`} />} /> */}
             <Route path="*" element={<PageNotFound />} />
           </Route>

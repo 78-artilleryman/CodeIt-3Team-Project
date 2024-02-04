@@ -1,11 +1,11 @@
 import Header from "components/Common/Header";
 import PostBox from "components/Posts/PostBox";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Home.module.scss";
 import Stack from "components/Common/Stack";
 import SelectBox from "components/SelectBox/FilterSelect";
 import * as selectData from "components/SelectBox/data";
-
+import { fetchPosts } from "components/Posts/fetchPost";
 const testData = [
   {
     postType: "프로젝트",
@@ -92,6 +92,14 @@ const testData = [
 ];
 
 function HomePage() {
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    const fetchPostsData = async () => {
+      const postsData = await fetchPosts();
+      setPosts(postsData);
+    };
+    fetchPostsData();
+  }, []);
   return (
     <main className={styles.container}>
       <section className={styles.section}>
@@ -100,7 +108,7 @@ function HomePage() {
         <SelectBox title={selectData.studyCount.title} position={"bottom"} list={selectData.studyCount.list} />
       </section>
       <section className={styles.section}>
-        {testData.map(data => (
+        {posts.map(data => (
           <PostBox
             postType={data.postType}
             postTitle={data.postTitle}
