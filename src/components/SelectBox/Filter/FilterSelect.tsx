@@ -1,5 +1,5 @@
 import React from "react";
-import useFilterSelect from "../../hooks/useFilterSelect";
+import useFilterSelect from "../../../hooks/useFilterSelect";
 import styles from "./FilterSelect.module.scss";
 
 interface SelectBoxProps {
@@ -11,12 +11,11 @@ interface SelectBoxProps {
   }[];
 }
 
-function SelectBox({ title, position, list }: SelectBoxProps) {
+function FilterSelectBox({ title, position, list }: SelectBoxProps) {
   const { isSelectOpen, selected, selectToggleHandler, selectedHandler } = useFilterSelect();
 
   const selectClassName = `${position === "bottom" ? styles["bottom"] : styles["top"]}`;
   const listItemClassName = ` ${position === "bottom" ? styles["list-bottom"] : styles["list-top"]}`;
-  console.log(selected);
   return (
     <>
       <div onClick={selectToggleHandler} className={`${styles.selectContainer} `}>
@@ -35,4 +34,4 @@ function SelectBox({ title, position, list }: SelectBoxProps) {
   );
 }
 
-export default SelectBox;
+export default FilterSelectBox;
