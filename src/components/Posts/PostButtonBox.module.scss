@@ -1,0 +1,26 @@
+.post_button_box {
+  width: 630px;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  bottom: 200px;
+
+  button {
+    width: 305px;
+    height: 60px;
+    border: 1px solid #292929;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .post_cancel_button {
+    background: #fff;
+  }
+
+  .post_submit_button {
+    color: #fff;
+    background-color: #292929;
+  }
+}

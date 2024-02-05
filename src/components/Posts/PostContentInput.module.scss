@@ -1,0 +1,33 @@
+.content_preview_container {
+  display: flex;
+  justify-content: space-between;
+
+  .content_input_container {
+    width: 630px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .input_title {
+      font-size: 16px;
+      font-weight: 700;
+    }
+  }
+
+  .content_preview_container {
+    width: 630px;
+    border-radius: 10px;
+    border: 1px solid #dedede;
+    overflow: hidden;
+    padding: 10px 10px;
+    height: 630px;
+    position: relative;
+    bottom: 215px;
+    word-break: break-all;
+    overflow-wrap: break-word;
+  }
+}
+
+.wmde-markdown {
+  width: 630px !important;
+}

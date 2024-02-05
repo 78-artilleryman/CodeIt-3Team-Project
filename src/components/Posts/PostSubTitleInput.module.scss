@@ -1,0 +1,26 @@
+.input_container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .input_title {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .post_sub_title_input {
+    width: 630px;
+    height: 56px;
+    border-radius: 10px;
+    border: 1px solid #dedede;
+    background: #fff;
+    padding: 10px 17px;
+    font-size: 16px;
+
+    &::placeholder {
+      color: #7f7f7f;
+      font-size: 16px;
+         
+    }
+  }
+}
