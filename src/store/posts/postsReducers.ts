@@ -3,33 +3,28 @@ import { PostDataInfo } from "./types";
 
 interface PostState {
   postList: PostDataInfo[];
-  loading: boolean;
-  error: string | null;
 }
 
 const initialState: PostState = {
   postList: [],
-  loading: false,
-  error: null,
 };
 
 const postReducer = createSlice({
   name: "post",
   initialState,
   reducers: {
-    loadPostsRequest: state => {
-      state.loading = true;
-      state.error = null;
-    },
-    loadPostsSuccess: (state, action: PayloadAction<PostDataInfo[]>) => {
-      state.loading = false;
+    // loadPostsRequest: state => {
+    //   state.loading = true;
+    //   state.error = null;
+    // },
+    loadPosts: (state, action: PayloadAction<PostDataInfo[]>) => {
       state.postList = action.payload;
     },
-    loadPostsFailure: (state, action: PayloadAction<string>) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
+    // loadPostsFailure: (state, action: PayloadAction<string>) => {
+    //   state.loading = false;
+    //   state.error = action.payload;
+    // },
   },
 });
-
+export const { loadPosts } = postReducer.actions;
 export default postReducer.reducer;

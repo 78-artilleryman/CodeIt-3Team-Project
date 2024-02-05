@@ -1,114 +1,53 @@
 import React from "react";
 import PostBox from "./PostBox";
-
-const testData = [
-  {
-    id: 1,
-    postType: "프로젝트",
-    postTitle: "벨로그 클론코딩 모집합니다.",
-    postSubTitle: "코드잇 3팀과 함께 할 스터디원 2명 구합니다.! 열정만 있으면 됩니다.",
-    stacks: ["typescript", "javascript", "nextjs", "react"],
-    uid: "ywy040150",
-    createdAt: "2024. 1. 17. 오후 11:03:02",
-    postDeadline: "2024. 1. 21",
-  },
-  {
-    id: 2,
-    postType: "스터디",
-    postTitle: "벨로그 클론코딩 모집합니다.",
-    postSubTitle:
-      "코드잇 3팀과 함께 할 스터디원 2명 구합니다.! 열정만 있으면 됩니다. 코드잇 3팀과 함께 할 스터디원 2명 구합니다.! 열정만 있으면 됩니다.",
-    stacks: ["typescript", "nextjs", "react"],
-    uid: "ywy040150",
-    createdAt: "2024. 1. 17. 오후 11:03:02",
-    postDeadline: "2024. 1. 21",
-  },
-  {
-    id: 3,
-    postType: "프로젝트",
-    postTitle: "벨로그 클론코딩 모집합니다.",
-    postSubTitle: "코드잇 3팀과 함께 할 스터디원 2명 구합니다.! 열정만 있으면 됩니다.",
-    stacks: ["nextjs", "react"],
-    uid: "ywy040150",
-    createdAt: "2024. 1. 17. 오후 11:03:02",
-    postDeadline: "2024. 1. 21",
-  },
-  {
-    id: 4,
-    postType: "프로젝트",
-    postTitle: "벨로그 클론코딩 모집합니다.",
-    postSubTitle: "코드잇 3팀과 함께 할 스터디원 2명 구합니다.! 열정만 있으면 됩니다.",
-    stacks: ["typescript"],
-    uid: "ywy040150",
-    createdAt: "2024. 1. 17. 오후 11:03:02",
-    postDeadline: "2024. 1. 21",
-  },
-  {
-    id: 5,
-    postType: "프로젝트",
-    postTitle: "벨로그 클론코딩 모집합니다.",
-    postSubTitle: "코드잇 3팀과 함께 할 스터디원 2명 구합니다.! 열정만 있으면 됩니다.",
-    stacks: ["typescript", "javascript", "nextjs", "react"],
-    uid: "ywy040150",
-    createdAt: "2024. 1. 17. 오후 11:03:02",
-    postDeadline: "2024. 1. 21",
-  },
-  {
-    id: 6,
-    postType: "프로젝트",
-    postTitle: "벨로그 클론코딩 모집합니다.",
-    postSubTitle: "코드잇 3팀과 함께 할 스터디원 2명 구합니다.! 열정만 있으면 됩니다.",
-    stacks: ["typescript", "javascript", "nextjs", "react"],
-    uid: "ywy040150",
-    createdAt: "2024. 1. 17. 오후 11:03:02",
-    postDeadline: "2024. 1. 21",
-  },
-  {
-    id: 7,
-    postType: "프로젝트",
-    postTitle: "벨로그 클론코딩 모집합니다.",
-    postSubTitle: "코드잇 3팀과 함께 할 스터디원 2명 구합니다.! 열정만 있으면 됩니다.",
-    stacks: ["typescript", "javascript", "nextjs", "react"],
-    uid: "ywy040150",
-    createdAt: "2024. 1. 17. 오후 11:03:02",
-    postDeadline: "2024. 1. 21",
-  },
-  {
-    id: 8,
-    postType: "프로젝트",
-    postTitle: "벨로그 클론코딩 모집합니다.",
-    postSubTitle: "코드잇 3팀과 함께 할 스터디원 2명 구합니다.! 열정만 있으면 됩니다.",
-    stacks: ["typescript", "javascript", "nextjs", "react"],
-    uid: "ywy040150",
-    createdAt: "2024. 1. 17. 오후 11:03:02",
-    postDeadline: "2024. 1. 21",
-  },
-  {
-    id: 9,
-    postType: "프로젝트",
-    postTitle: "벨로그 클론코딩 모집합니다.",
-    postSubTitle: "코드잇 3팀과 함께 할 스터디원 2명 구합니다.! 열정만 있으면 됩니다.",
-    stacks: ["typescript", "javascript", "nextjs", "react"],
-    uid: "ywy040150",
-    createdAt: "2024. 1. 17. 오후 11:03:02",
-    postDeadline: "2024. 1. 21",
-  },
-];
+import { useSelector } from "react-redux";
+import { RootState } from "store/configureStore";
+import { useEffect } from "react";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import { db } from "firebaseApp/config";
+import { loadPosts } from "store/posts/postsReducers";
+import { useDispatch } from "react-redux";
+import { PostDataInfo } from "store/posts/types";
 
 function PostList() {
+  const user = useSelector((state: RootState) => state.auth.user);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    // 초기 로그인 상태 설정
+    if (user) {
+      let postRef = collection(db, "posts");
+      let postsQuer = query(postRef, orderBy("createdAt", "desc"));
+
+      onSnapshot(postsQuer, snapShop => {
+        let dataObj = snapShop.docs.map(doc => ({
+          ...doc?.data(),
+          id: doc?.id,
+        }));
+        dispatch(loadPosts(dataObj as PostDataInfo[]));
+      });
+    }
+  }, [dispatch]);
+
+  const postlist = useSelector((state: RootState) => state.post.postList);
+  console.log(postlist);
+
   return (
     <>
-      {testData.map(data => (
+      {postlist.map(data => (
         <PostBox
           key={data.id}
           id={data.id}
-          postType={data.postType}
+          type={data.type}
+          personnel={data.personnel}
+          meeting={data.meeting}
+          period={data.period}
+          postDeadline={data.postDeadline}
+          stacks={data.stacks}
           postTitle={data.postTitle}
           postSubTitle={data.postSubTitle}
-          stacks={data.stacks}
-          uid={data.uid}
+          postContent={data.postContent}
           createdAt={data.createdAt}
-          postDeadline={data.postDeadline}
+          uid={data.uid}
         />
       ))}
     </>

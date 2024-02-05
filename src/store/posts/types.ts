@@ -1,5 +1,6 @@
 export interface PostDataInfo {
   // 게시물 카테고리
+  id: string;
   type: string; // 스터디 종류
   personnel: string; // 모집 인원
   meeting: string; // 진행 방식
