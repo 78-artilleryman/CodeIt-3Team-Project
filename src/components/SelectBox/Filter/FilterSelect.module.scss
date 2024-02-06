@@ -1,0 +1,51 @@
+.selectContainer {
+  width: 120px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.dropdown {
+  border-radius: 10px;
+  border: 1px solid #000;
+  position: absolute;
+  top: calc(100% + 10px);
+  width: 100%;
+  padding: 20px 0;
+  left: 0;
+  background-color: white;
+}
+
+.top {
+  display: flex;
+  flex-direction: column-reverse;
+  top: calc(100% + -380px);
+}
+
+.listItem {
+  color: #ccc;
+  text-align: center;
+  width: 100%;
+  font-weight: 500;
+
+  &:hover {
+    color: #000;
+  }
+}
+
+.list-bottom {
+  & + & {
+    margin-top: 20px;
+  }
+}
+
+.list-top {
+  & + & {
+    margin-bottom: 20px;
+  }
+}

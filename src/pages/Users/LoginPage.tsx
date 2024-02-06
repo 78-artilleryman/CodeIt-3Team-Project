@@ -1,13 +1,11 @@
-import Header from "components/Common/Header";
-import LoginForm from "components/Users/LoginForm";
+import LoginForm from "components/auth/LoginForm";
 import React from "react";
 
 function LoginPage() {
   return (
-    <>
-      <Header />
-      <LoginForm />;
-    </>
+    <React.Fragment>
+      <LoginForm />
+    </React.Fragment>
   );
 }
 

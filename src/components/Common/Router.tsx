@@ -1,4 +1,6 @@
-import { Chatting, Home, Posts, Profile, Users } from "pages";
+import { Chatting, Home, PageNotFound, Posts, Profile, RootPage, Users } from "pages";
+import { HomePage } from "pages/Home";
+import React from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 
 interface RouterProps {
@@ -9,23 +11,30 @@ function Router({ isAuthenticated }: RouterProps) {
   return (
     <Routes>
       {isAuthenticated ? (
-        <>
-          <Route path="/" element={<Home.HomePage />} />
-          <Route path="/posts/:id" element={<Posts.PostDetailPage />}></Route>
-          <Route path="/posts/edit/:id" element={<Posts.PostEditPage />}></Route>
-          <Route path="/posts/write" element={<Posts.PostWritePage />}></Route>
-          <Route path="/profile/edit" element={<Profile.UserDataPage />}></Route>
-          <Route path="/profile/myPage" element={<Profile.MyPage />}></Route>
-          <Route path="/chatting" element={<Chatting.ChattingPage />}></Route>
+        <React.Fragment>
+          <Route path="/" element={<RootPage />}>
+            <Route index element={<HomePage />} />
+            <Route path="posts/:id" element={<Posts.PostDetailPage />}></Route>
+            <Route path="posts/edit/:id" element={<Posts.PostEditPage />}></Route>
+            <Route path="posts/write" element={<Posts.PostWritePage />}></Route>
+            <Route path="profile/edit" element={<Profile.UserDataPage />}></Route>
+            <Route path="profile/myPage" element={<Profile.MyPage />}></Route>
+            <Route path="chatting" element={<Chatting.ChattingPage />}></Route>
+            <Route path="login" element={<Users.LoginPage />}></Route>
+            <Route path="signup" element={<Users.SignUpPage />}></Route>
+          </Route>
           <Route path="*" element={<Navigate replace to={`/`} />} />
-        </>
+        </React.Fragment>
       ) : (
-        <>
-          <Route path="/intro" element={<Home.IntroPage />}></Route>
-          <Route path="/login" element={<Users.LoginPage />}></Route>
-          <Route path="/signup" element={<Users.SignUpPage />}></Route>
-          <Route path="*" element={<Navigate replace to={`/login`} />} />
-        </>
+        <React.Fragment>
+          <Route path="/" element={<RootPage />}>
+            <Route index element={<HomePage />} />
+            <Route path="intro" element={<Home.IntroPage />}></Route>
+
+            {/* <Route path="*" element={<Navigate replace to={`/login`} />} /> */}
+            <Route path="*" element={<PageNotFound />} />
+          </Route>
+        </React.Fragment>
       )}
     </Routes>
   );
