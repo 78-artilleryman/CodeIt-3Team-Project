@@ -2,7 +2,7 @@
   width: 120px;
   height: 36px;
   border-radius: 10px;
-  border: 1px solid #dedede;
+  border: 1px solid #000;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,7 +12,7 @@
 
 .dropdown {
   border-radius: 10px;
-  border: 1px solid #dedede;
+  border: 1px solid #000;
   position: absolute;
   top: calc(100% + 10px);
   width: 100%;
@@ -31,6 +31,7 @@
   color: #ccc;
   text-align: center;
   width: 100%;
+  font-weight: 500;
 
   &:hover {
     color: #000;

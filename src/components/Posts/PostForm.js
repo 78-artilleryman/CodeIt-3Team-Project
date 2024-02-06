@@ -1,6 +1,6 @@
 import PostSelect from "components/SelectBox/PostSelect";
 import * as selectData from "components/SelectBox/data";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { db } from "firebaseApp/config";
 import firebase, { app } from "firebaseApp/config";
 import { collection, getDocs, doc, setDoc, addDoc, getDoc, Firestore } from "firebase/firestore";
