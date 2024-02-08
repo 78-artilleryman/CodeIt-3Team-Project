@@ -3,6 +3,7 @@ import { useState, MouseEvent } from "react";
 function useFilterSelect() {
   const [isSelectOpen, setIsSelectOpen] = useState(false);
   const [selected, setSelected] = useState("");
+  const [stackSelected, setStackSelected] = useState<string[]>([]);
 
   const selectToggleHandler = () => setIsSelectOpen(prevSelect => !prevSelect);
 
@@ -16,6 +17,7 @@ function useFilterSelect() {
   return {
     isSelectOpen,
     selected,
+    stackSelected,
     selectToggleHandler,
     selectedHandler,
   };

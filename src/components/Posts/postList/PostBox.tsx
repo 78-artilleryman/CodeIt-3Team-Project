@@ -11,18 +11,20 @@ interface PostBoxProps {
   period: string; // 진행 기간
   postDeadline: string; // 모집 마감일
   stacks: string[]; // 기술 스택
+  hashTag?: string;
   // 게시물 내용
   postTitle: string;
   postSubTitle: string;
   postContent: string;
   uid: string;
   createdAt: string;
+  name?: string;
 }
 
 function PostBox(props: PostBoxProps) {
   const { id, studyType, postTitle, postSubTitle, stacks, uid, createdAt, postDeadline } = props;
 
-  const getImageSrc = (stack: string) => `LogoImages/${stack}.png`;
+  const getImageSrc = (stack: string) => `LogoImages/postBox/${stack}.png`;
 
   return (
     <div className={styles.post} key={id}>
@@ -42,7 +44,7 @@ function PostBox(props: PostBoxProps) {
           </div>
         </div>
         <div className={styles.post_user}>
-          <img src="LogoImages/basicProfile.png" alt="" />
+          <img src="LogoImages/postBox/basicProfile.png" alt="profile" />
           <p>{uid}</p>
         </div>
       </Link>
