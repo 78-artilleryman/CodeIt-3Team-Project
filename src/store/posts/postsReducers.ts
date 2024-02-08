@@ -3,14 +3,16 @@ import { PostDataInfo } from "./types";
 
 interface PostState {
   postList: PostDataInfo[];
-  classification: string;
-  studyCount: string;
+  filterClassification: string;
+  filterStudyCount: string;
+  filterStacks: string[];
 }
 
 const initialState: PostState = {
   postList: [],
-  classification: "전체",
-  studyCount: "전체",
+  filterClassification: "전체",
+  filterStudyCount: "전체",
+  filterStacks: [],
 };
 
 const postReducer = createSlice({
@@ -20,13 +22,23 @@ const postReducer = createSlice({
     loadPosts: (state, action: PayloadAction<PostDataInfo[]>) => {
       state.postList = action.payload;
     },
-    setClassification: (state, action: PayloadAction<string>) => {
-      state.classification = action.payload;
+    setFilterClassification: (state, action: PayloadAction<string>) => {
+      state.filterClassification = action.payload;
     },
-    setStudyCount: (state, action: PayloadAction<string>) => {
-      state.studyCount = action.payload;
+    setFilterStudyCount: (state, action: PayloadAction<string>) => {
+      state.filterStudyCount = action.payload;
+    },
+    setFilterStack: (state, action: PayloadAction<string>) => {
+      const valueToAdd = action.payload;
+      // 새로운 값이 이미 배열에 있는지 확인하고 없으면 추가
+      if (!state.filterStacks.includes(valueToAdd)) {
+        state.filterStacks.push(valueToAdd);
+      } else {
+        // 이미 있는 경우 제거
+        state.filterStacks = state.filterStacks.filter(value => value !== valueToAdd);
+      }
     },
   },
 });
-export const { loadPosts, setClassification, setStudyCount } = postReducer.actions;
+export const { loadPosts, setFilterClassification, setFilterStudyCount, setFilterStack } = postReducer.actions;
 export default postReducer.reducer;

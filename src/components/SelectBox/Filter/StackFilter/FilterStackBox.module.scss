@@ -1,0 +1,44 @@
+.stackSelectBox {
+  width: 120px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.stackBox {
+  border-radius: 10px;
+  border: 1px solid #000;
+  position: absolute;
+  top: calc(100% + 10px);
+  width: 670px;
+  padding: 20px 10px;
+  left: 0;
+  background-color: white;
+}
+
+// FilterStack 컴포넌트
+.stackBox_stacks {
+  display: flex;
+}
+
+.stackBox_stack {
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  gap: 10px;
+}
+
+.stackBox_stack-JvaScript {
+  background: #c2e4fb;
+  border: 1px solid black;
+}
+
+.stackBox_stack_image {
+  width: 36px;
+  height: 36px;
+}
