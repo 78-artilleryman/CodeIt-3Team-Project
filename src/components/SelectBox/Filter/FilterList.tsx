@@ -12,27 +12,37 @@ import FilterStackBox from "./StackFilter/FilterStackBox";
 function FilterList() {
   const dispatch = useDispatch();
   const { filterClassification, filterStudyCount, filterStacks } = useSelector((state: RootState) => state.post);
-  console.log(filterStacks);
   useEffect(() => {
     // Firestore에서 데이터를 가져오는 로직
     let postsRef = collection(db, "posts");
     let postsQuery;
 
-    // classification과 studyCount가 모두 "all"인 경우 모든 게시물을 가져옴
-    if (filterClassification === "전체" && filterStudyCount === "전체") {
+    if (filterClassification === "전체" && filterStudyCount === "전체" && filterStacks.length === 0) {
       postsQuery = collection(db, "posts");
-    } else if (filterClassification === "전체") {
-      // classification이 "전체"이고 studyCount가 특정 값인 경우 해당 값에 맞는 게시물을 가져옴
+    } else if (filterClassification === "전체" && filterStacks.length === 0) {
       postsQuery = query(postsRef, where("studyCount", "==", filterStudyCount), orderBy("createdAt", "desc"));
-    } else if (filterStudyCount === "전체") {
-      // studyCount가 "all"이고 classification이 특정 값인 경우 해당 값에 맞는 게시물을 가져옴
+    } else if (filterStudyCount === "전체" && filterStacks.length === 0) {
       postsQuery = query(postsRef, where("studyType", "==", filterClassification), orderBy("createdAt", "desc"));
+    } else if (filterClassification === "전체") {
+      postsQuery = query(
+        postsRef,
+        where("studyCount", "==", filterStudyCount),
+        where("stacks", "array-contains-any", filterStacks),
+        orderBy("createdAt", "desc")
+      );
+    } else if (filterStudyCount === "전체") {
+      postsQuery = query(
+        postsRef,
+        where("studyType", "==", filterClassification),
+        where("stacks", "array-contains-any", filterStacks),
+        orderBy("createdAt", "desc")
+      );
     } else {
-      // 그렇지 않은 경우 classification과 studyCount에 따라 쿼리 생성
       postsQuery = query(
         postsRef,
         where("studyType", "==", filterClassification),
         where("studyCount", "==", filterStudyCount),
+        where("stacks", "array-contains-any", filterStacks),
         orderBy("createdAt", "desc")
       );
     }
@@ -46,7 +56,7 @@ function FilterList() {
     });
 
     return () => unsubscribe();
-  }, [filterClassification, filterStudyCount, dispatch]);
+  }, [filterClassification, filterStudyCount, filterStacks, dispatch]);
   return (
     <>
       <FilterSelectBox
