@@ -23,6 +23,7 @@ const style: any = {
   //styles를 사용해 css를 분리하려고 했지만 분리가 안되서 인라인 스타일로 적용
   TypeScript: {
     background: "#C2E4FB",
+    opacity: "0.3",
   },
   JavaScript: {
     background: "#FFF39A",
@@ -69,7 +70,7 @@ function FilterStackBox({ title, subtitle, position, stack, css, onSelect }: Fil
                 {stack.map(data => (
                   <li
                     key={data.id}
-                    className={`${styles.stackBox_stack} `} // 클래스 이름을 동적으로 설정
+                    className={`${styles.stackBox_stack} `}
                     onClick={() => selectHandle(data.value)}
                     style={style[data.value]}
                   >

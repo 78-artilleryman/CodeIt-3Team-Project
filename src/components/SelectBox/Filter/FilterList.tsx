@@ -12,6 +12,9 @@ import FilterStackBox from "./StackFilter/FilterStackBox";
 function FilterList() {
   const dispatch = useDispatch();
   const { filterClassification, filterStudyCount, filterStacks } = useSelector((state: RootState) => state.post);
+  console.log(filterClassification);
+  console.log(filterStudyCount);
+  console.log(filterStacks);
   useEffect(() => {
     // Firestore에서 데이터를 가져오는 로직
     let postsRef = collection(db, "posts");
@@ -20,24 +23,41 @@ function FilterList() {
     if (filterClassification === "전체" && filterStudyCount === "전체" && filterStacks.length === 0) {
       postsQuery = collection(db, "posts");
     } else if (filterClassification === "전체" && filterStacks.length === 0) {
+      // 스터디 횟수만 바꿨을 경우 동작
       postsQuery = query(postsRef, where("studyCount", "==", filterStudyCount), orderBy("createdAt", "desc"));
     } else if (filterStudyCount === "전체" && filterStacks.length === 0) {
+      // 스터디 종류만 바꿨을 경우 동작
       postsQuery = query(postsRef, where("studyType", "==", filterClassification), orderBy("createdAt", "desc"));
-    } else if (filterClassification === "전체") {
-      postsQuery = query(
-        postsRef,
-        where("studyCount", "==", filterStudyCount),
-        where("stacks", "array-contains-any", filterStacks),
-        orderBy("createdAt", "desc")
-      );
+    } else if (filterClassification === "전체" && filterStudyCount === "전체") {
+      // 기술스택만 바꿨을 경우 동작
+      postsQuery = query(postsRef, where("stacks", "array-contains-any", filterStacks), orderBy("createdAt", "desc"));
     } else if (filterStudyCount === "전체") {
+      // 스터디 종류, 기술스택을 바꿨을 경우
       postsQuery = query(
         postsRef,
         where("studyType", "==", filterClassification),
         where("stacks", "array-contains-any", filterStacks),
         orderBy("createdAt", "desc")
       );
+    } else if (filterClassification === "전체") {
+      // 스터디횟수, 기술스택을 바꿨을 경우
+      postsQuery = query(
+        postsRef,
+        where("studyCount", "==", filterStudyCount),
+        where("stacks", "array-contains-any", filterStacks),
+        orderBy("createdAt", "desc")
+      );
+    } else if (filterStacks.length === 0) {
+      // 스터디 종류, 스터디횟수 바꿨을 경우
+      postsQuery = query(
+        postsRef,
+        where("studyCount", "==", filterStudyCount),
+        where("studyType", "==", filterClassification),
+        orderBy("createdAt", "desc")
+      );
+      console.log("Test3");
     } else {
+      // 모두 바꿨을 경우
       postsQuery = query(
         postsRef,
         where("studyType", "==", filterClassification),
