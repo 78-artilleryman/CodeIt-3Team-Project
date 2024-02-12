@@ -82,49 +82,49 @@ export const filterStack = {
   subtitle: ["라이브러리 및 프레임 워크", "스타일"],
   stack: [
     {
-      key: 1,
+      id: 1,
       image: "LogoImages/FilterStack/F-typescript.png",
       value: "TypeScript",
     },
     {
-      key: 2,
+      id: 2,
       image: "LogoImages/FilterStack/F-javascript.png",
       value: "JavaScript",
     },
     {
-      key: 3,
+      id: 3,
       image: "LogoImages/FilterStack/F-nextjs.png",
       value: "Next Js",
     },
     {
-      key: 4,
+      id: 4,
       image: "LogoImages/FilterStack/F-react.png",
       value: "React Js",
     },
   ],
   css: [
     {
-      key: 1,
+      id: 1,
       image: "LogoImages/FilterStack/F-css.png",
       value: "CSS",
     },
     {
-      key: 2,
+      id: 2,
       image: "LogoImages/FilterStack/F-comcss.png",
       value: "Styled Components",
     },
     {
-      key: 3,
+      id: 3,
       image: "LogoImages/FilterStack/F-sass.png",
       value: "Scss",
     },
     {
-      key: 4,
+      id: 4,
       image: "LogoImages/FilterStack/F-postcss.png",
       value: "Post css",
     },
     {
-      key: 5,
+      id: 5,
       image: "LogoImages/FilterStack/F-tailwind.png",
       value: "Tailwind",
     },
