@@ -5,10 +5,11 @@ import FilterList from "components/SelectBox/Filter/FilterList";
 function HomePage() {
   return (
     <>
-      <section className={styles.section}>
+      <section className={styles.filterSection}>
         <FilterList />
+        <div>서치바 영역</div>
       </section>
-      <section className={styles.section}>
+      <section className={styles.postSection}>
         <PostList />
       </section>
     </>

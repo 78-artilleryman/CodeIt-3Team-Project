@@ -2,16 +2,14 @@ import styles from "./FilterStackBox.module.scss";
 
 interface FilterSelecProps {
   image: string;
-  value: string;
+  name: string;
 }
 
-function FilterStack({ image, value }: FilterSelecProps) {
+function FilterStack({ image, name }: FilterSelecProps) {
   return (
     <>
-      <img src={image} alt="" className={`${styles.stackBox_stack_image}`} id={value} />
-      <p className={styles.stackBox_stack_text} id={value}>
-        {value}
-      </p>
+      <img src={image} alt="" className={`${styles.stackBox_stack_image}`} />
+      <p className={styles.stackBox_stack_text}>{name}</p>
     </>
   );
 }
