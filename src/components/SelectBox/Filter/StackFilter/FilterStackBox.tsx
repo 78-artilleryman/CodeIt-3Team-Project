@@ -10,46 +10,16 @@ interface FilterStackBoxProps {
     id: number;
     image: string;
     value: string;
+    name: string;
   }[];
   css: {
     id: number;
     image: string;
     value: string;
+    name: string;
   }[];
   onSelect: (value: string) => void;
 }
-
-const style: any = {
-  //styles를 사용해 css를 분리하려고 했지만 분리가 안되서 인라인 스타일로 적용
-  TypeScript: {
-    background: "#C2E4FB",
-    opacity: "0.3",
-  },
-  JavaScript: {
-    background: "#FFF39A",
-  },
-  "Next Js": {
-    background: "#9B9B9B",
-  },
-  "React Js": {
-    background: "#C3F7FF",
-  },
-  CSS: {
-    background: "#C2DBFF",
-  },
-  "Styled Components": {
-    background: "#FFE0F5",
-  },
-  Scss: {
-    background: "#FFDCED",
-  },
-  "Post css": {
-    background: "#FFD8D2",
-  },
-  Tailwind: {
-    background: "#C7F1FF",
-  },
-};
 
 function FilterStackBox({ title, subtitle, position, stack, css, onSelect }: FilterStackBoxProps) {
   const { isSelectOpen, selectToggleHandler } = useFilterSelect();
@@ -70,11 +40,10 @@ function FilterStackBox({ title, subtitle, position, stack, css, onSelect }: Fil
                 {stack.map(data => (
                   <li
                     key={data.id}
-                    className={`${styles.stackBox_stack} `}
+                    className={`${styles.stackBox_stack} ${styles[data.value]} `}
                     onClick={() => selectHandle(data.value)}
-                    style={style[data.value]}
                   >
-                    <FilterStack image={data.image} value={data.value} />
+                    <FilterStack image={data.image} name={data.name} />
                   </li>
                 ))}
               </ul>
@@ -86,11 +55,10 @@ function FilterStackBox({ title, subtitle, position, stack, css, onSelect }: Fil
                 {css.map(data => (
                   <li
                     key={data.id}
-                    className={`${styles.stackBox_stack}`}
+                    className={`${styles.stackBox_stack} ${styles[data.value]}`}
                     onClick={() => selectHandle(data.value)}
-                    style={style[data.value]}
                   >
-                    <FilterStack image={data.image} value={data.value} />
+                    <FilterStack image={data.image} name={data.name} />
                   </li>
                 ))}
               </ul>

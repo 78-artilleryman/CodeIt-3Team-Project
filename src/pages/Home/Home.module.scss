@@ -1,5 +1,16 @@
-.section {
+.filterSection {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  width: 67%;
+  margin: 80px auto 30px auto;
+  justify-content: space-between;
+}
+
+.postSection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 67%;
+  margin: 0 auto;
 }

@@ -9,12 +9,14 @@ import { db } from "firebaseApp/config";
 import { PostDataInfo } from "store/posts/types";
 import FilterStackBox from "./StackFilter/FilterStackBox";
 
+const fileterListStyle = {
+  display: "flex",
+  gap: "10px",
+};
+
 function FilterList() {
   const dispatch = useDispatch();
   const { filterClassification, filterStudyCount, filterStacks } = useSelector((state: RootState) => state.post);
-  console.log(filterClassification);
-  console.log(filterStudyCount);
-  console.log(filterStacks);
   useEffect(() => {
     // Firestore에서 데이터를 가져오는 로직
     let postsRef = collection(db, "posts");
@@ -78,7 +80,7 @@ function FilterList() {
     return () => unsubscribe();
   }, [filterClassification, filterStudyCount, filterStacks, dispatch]);
   return (
-    <>
+    <div style={fileterListStyle}>
       <FilterSelectBox
         title={filterClassificationData.title}
         icon={filterClassificationData.icon}
@@ -101,7 +103,7 @@ function FilterList() {
         list={filterStudyCountData.list}
         onSelect={value => dispatch(setFilterStudyCount(value))}
       />
-    </>
+    </div>
   );
 }
 
