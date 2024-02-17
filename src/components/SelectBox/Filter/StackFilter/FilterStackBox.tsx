@@ -19,9 +19,10 @@ interface FilterStackBoxProps {
     name: string;
   }[];
   onSelect: (value: string) => void;
+  filterStacks: string[];
 }
 
-function FilterStackBox({ title, subtitle, position, stack, css, onSelect }: FilterStackBoxProps) {
+function FilterStackBox({ title, subtitle, position, stack, css, onSelect, filterStacks }: FilterStackBoxProps) {
   const { isSelectOpen, selectToggleHandler } = useFilterSelect();
 
   const selectHandle = (value: string) => {
@@ -37,15 +38,18 @@ function FilterStackBox({ title, subtitle, position, stack, css, onSelect }: Fil
             <div className={styles.stackBox_content_1}>
               <h3 className={styles.stackBox_title}>{subtitle[0]}</h3>
               <ul className={styles.stackBox_stacks}>
-                {stack.map(data => (
-                  <li
-                    key={data.id}
-                    className={`${styles.stackBox_stack} ${styles[data.value]} `}
-                    onClick={() => selectHandle(data.value)}
-                  >
-                    <FilterStack image={data.image} name={data.name} />
-                  </li>
-                ))}
+                {stack.map(data => {
+                  return (
+                    <li
+                      key={data.id}
+                      className={`${styles.stackBox_stack} ${styles[data.value]} 
+                      ${filterStacks.includes(data.value) ? styles.check : ""} `}
+                      onClick={() => selectHandle(data.value)}
+                    >
+                      <FilterStack image={data.image} name={data.name} />
+                    </li>
+                  );
+                })}
               </ul>
             </div>
             <hr></hr>

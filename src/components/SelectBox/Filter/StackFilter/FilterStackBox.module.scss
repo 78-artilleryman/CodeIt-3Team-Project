@@ -69,36 +69,49 @@
 // 각 언어 박스 스타일
 .TypeScript {
   background: #c2e4fb;
+  opacity: 50%;
 }
 
 .JavaScript {
   background: #fff39a;
+  opacity: 50%;
 }
 
 .NextJs {
   background: #9b9b9b;
+  opacity: 50%;
 }
 
 .ReactJs {
   background: #c3f7ff;
+  opacity: 50%;
 }
 
 .CSS {
   background: #c2dbff;
+  opacity: 50%;
 }
 
 .StyledComponents {
   background: #ffe0f5;
+  opacity: 50%;
 }
 
 .Scss {
   background: #ffdced;
+  opacity: 50%;
 }
 
 .Postcss {
   background: #ffd8d2;
+  opacity: 50%;
 }
 
 .Tailwind {
   background: #c7f1ff;
+  opacity: 50%;
+}
+
+.check {
+  opacity: 100%;
 }
