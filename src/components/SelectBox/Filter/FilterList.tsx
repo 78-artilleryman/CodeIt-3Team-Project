@@ -95,6 +95,7 @@ function FilterList() {
         stack={filterStack.stack}
         css={filterStack.css}
         onSelect={value => dispatch(setFilterStack(value))}
+        filterStacks={filterStacks}
       />
       <FilterSelectBox
         title={filterStudyCountData.title}
