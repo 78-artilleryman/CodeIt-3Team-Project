@@ -8,7 +8,7 @@ interface FilterSelecProps {
 function FilterStack({ image, name }: FilterSelecProps) {
   return (
     <>
-      <img src={image} alt="" className={`${styles.stackBox_stack_image}`} />
+      <img src={image} alt="stack" className={`${styles.stackBox_stack_image}`} />
       <p className={styles.stackBox_stack_text}>{name}</p>
     </>
   );

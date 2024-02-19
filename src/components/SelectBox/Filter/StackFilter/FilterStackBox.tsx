@@ -59,7 +59,8 @@ function FilterStackBox({ title, subtitle, position, stack, css, onSelect, filte
                 {css.map(data => (
                   <li
                     key={data.id}
-                    className={`${styles.stackBox_stack} ${styles[data.value]}`}
+                    className={`${styles.stackBox_stack} ${styles[data.value]} 
+                      ${filterStacks.includes(data.value) ? styles.check : ""} `}
                     onClick={() => selectHandle(data.value)}
                   >
                     <FilterStack image={data.image} name={data.name} />
