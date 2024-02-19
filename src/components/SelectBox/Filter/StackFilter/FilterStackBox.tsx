@@ -25,6 +25,8 @@ interface FilterStackBoxProps {
 function FilterStackBox({ title, subtitle, position, stack, css, onSelect, filterStacks }: FilterStackBoxProps) {
   const { isSelectOpen, selectToggleHandler } = useFilterSelect();
 
+  const stackBoxClassName = `${position === "bottom" ? styles["bottom"] : styles["top"]}`;
+
   const selectHandle = (value: string) => {
     onSelect(value);
   };
@@ -34,7 +36,7 @@ function FilterStackBox({ title, subtitle, position, stack, css, onSelect, filte
       <div className={styles.stackSelectBox} onClick={selectToggleHandler}>
         {"📚 " + title}
         {isSelectOpen && (
-          <div className={styles.stackBox}>
+          <div className={`${styles.stackBox} ${stackBoxClassName}`}>
             <div className={styles.stackBox_content_1}>
               <h3 className={styles.stackBox_title}>{subtitle[0]}</h3>
               <ul className={styles.stackBox_stacks}>

@@ -13,12 +13,21 @@
 .stackBox {
   border-radius: 10px;
   border: 1px solid #000;
-  position: absolute;
-  top: calc(100% + 10px);
   width: 700px;
   padding: 20px 20px 30px 20px;
-  left: 0;
   background-color: white;
+}
+
+.bottom {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+}
+
+.top {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 0;
 }
 
 .stackBox_content_1,
