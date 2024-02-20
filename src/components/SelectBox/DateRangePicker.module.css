@@ -1,0 +1,45 @@
+.select_title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.select_title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.selected_value_input_wrapper {
+  margin-top: 10px;
+  width: 305px;
+  height: 56px;
+  border-radius: 10px;
+  border: 1.5px solid #000;
+  background: #fff;
+  position: relative;
+}
+.selected_value_input {
+  font-size: 16px;
+  width: 305px;
+  padding-left: 10px;
+  margin-top: 17px;
+}
+
+.input_down_icon {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 19px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.option_down_icon {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 19px;
+  right: 10px;
+  cursor: pointer;
+}
