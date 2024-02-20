@@ -8,7 +8,7 @@ import { collection, onSnapshot, orderBy, query, where } from "firebase/firestor
 import { db } from "firebaseApp/config";
 import { PostDataInfo } from "store/posts/types";
 import FilterStackBox from "./StackFilter/FilterStackBox";
-import { buildFirestoreQuery } from "utils/\bFilter";
+import { buildFirestoreQuery } from "utils/Filter";
 
 const fileterListStyle = {
   display: "flex",
