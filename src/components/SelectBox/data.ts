@@ -88,25 +88,25 @@ export const filterStack = {
   stack: [
     {
       id: 1,
-      image: "LogoImages/FilterStack/F-typescript.svg",
+      image: "LogoImages/FilterStack/F-typescript.png",
       value: "TypeScript",
       name: "TypeScript",
     },
     {
       id: 2,
-      image: "LogoImages/FilterStack/F-javascript.svg",
+      image: "LogoImages/FilterStack/F-javascript.png",
       value: "JavaScript",
       name: "JavaScript",
     },
     {
       id: 3,
-      image: "LogoImages/FilterStack/F-nextjs.svg",
+      image: "LogoImages/FilterStack/F-nextjs.png",
       value: "NextJs",
       name: "Next Js",
     },
     {
       id: 4,
-      image: "LogoImages/FilterStack/F-react.svg",
+      image: "LogoImages/FilterStack/F-react.png",
       value: "ReactJs",
       name: "React Js",
     },
@@ -114,31 +114,31 @@ export const filterStack = {
   css: [
     {
       id: 1,
-      image: "LogoImages/FilterStack/F-css.svg",
+      image: "LogoImages/FilterStack/F-css.png",
       value: "CSS",
       name: "CSS",
     },
     {
       id: 2,
-      image: "LogoImages/FilterStack/F-styledComponent.svg",
+      image: "LogoImages/FilterStack/F-styledcomponent.png",
       value: "StyledComponents",
       name: "Styled Components",
     },
     {
       id: 3,
-      image: "LogoImages/FilterStack/F-sass.svg",
+      image: "LogoImages/FilterStack/F-sass.png",
       value: "Scss",
       name: "Scss",
     },
     {
       id: 4,
-      image: "LogoImages/FilterStack/F-postcss.svg",
+      image: "LogoImages/FilterStack/F-postcss.png",
       value: "Postcss",
       name: "Post css",
     },
     {
       id: 5,
-      image: "LogoImages/FilterStack/F-tailwind.svg",
+      image: "LogoImages/FilterStack/F-tailwind.png",
       value: "Tailwind",
       name: "Tailwind",
     },

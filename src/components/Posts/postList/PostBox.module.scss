@@ -27,11 +27,12 @@
 
 .post_content {
   border-bottom: 1px solid #dfdfdf;
-  padding-top: 5px;
+  padding-top: 15px;
   padding-bottom: 20px;
   display: flex;
   flex-direction: column;
   gap: 15px;
+
   p {
     color: #b0b0b0;
     font-size: 12px;
@@ -41,15 +42,25 @@
     color: #000;
     font-size: 18px;
     font-weight: 700;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
   }
   h4 {
     color: #707070;
     font-size: 16px;
     font-weight: 400;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    min-height: 40px;
   }
   &__stack {
     display: flex;
     gap: 10px;
+    min-height: 35px;
 
     img {
       width: 30px;
@@ -62,6 +73,7 @@
   display: flex;
   gap: 10px;
   align-items: center;
+  margin-top: 10px;
 
   img {
     width: 30px;
