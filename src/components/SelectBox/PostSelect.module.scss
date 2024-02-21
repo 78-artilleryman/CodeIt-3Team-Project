@@ -1,0 +1,62 @@
+.select_title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.selected_value_input_wrapper {
+  margin-top: 10px;
+  width: 305px;
+  height: 56px;
+  border-radius: 10px;
+  border: 1.5px solid #000;
+  background: #fff;
+  position: relative;
+  z-index: 10;
+}
+.selected_value_input {
+  font-size: 16px;
+  width: 305px;
+  position: relative;
+
+  padding-left: 35px;
+}
+.input_down_icon {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 19px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.selected_icon {
+  position: relative;
+  left: 10px;
+  top: 17px;
+}
+
+.selected_list {
+  z-index: 1;
+
+  bottom: 10px;
+  width: 305px;
+  border: 1.5px solid black;
+  border-radius: 10px;
+  padding: 0 10px 10px 10px;
+  background: #fff;
+
+  li {
+    margin-top: 10px;
+    cursor: pointer;
+  }
+}
+
+.selector {
+  position: absolute;
+  z-index: 1;
+}
+
+.unselected_value {
+  color: #676767;
+}
