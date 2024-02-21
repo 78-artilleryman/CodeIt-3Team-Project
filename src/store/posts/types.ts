@@ -5,6 +5,8 @@ export interface PostDataInfo {
   personnel: string; // 모집 인원
   meeting: string; // 진행 방식
   period: string; // 진행 기간
+  projectStartDate: string; //프로젝트 시작일
+  projectEndDate: string;
   postDeadline: string; // 모집 마감일
   stacks: string[]; // 기술 스택
   hashTag?: string;
@@ -14,5 +16,5 @@ export interface PostDataInfo {
   postContent: string;
   uid: string;
   createdAt: string;
-  name?: string;
+  userName?: string;
 }

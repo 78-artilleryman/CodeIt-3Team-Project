@@ -18,7 +18,8 @@ export function buildFirestoreQuery(
   let postsQuery: Query;
 
   if (filterClassification === "전체" && filterStudyCount === "전체" && filterStacks.length === 0) {
-    postsQuery = collection(db, "posts");
+    postsQuery = query(postsRef, orderBy("createdAt", "desc"));
+    // postsQuery = collection(db, "posts");
   } else if (filterClassification === "전체" && filterStacks.length === 0) {
     postsQuery = query(postsRef, where("studyCount", "==", filterStudyCount), orderBy("createdAt", "desc"));
   } else if (filterStudyCount === "전체" && filterStacks.length === 0) {
