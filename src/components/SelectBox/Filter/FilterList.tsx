@@ -1,41 +1,26 @@
 import React, { useEffect } from "react";
 import FilterSelectBox from "./FilterSelect";
-import * as selectData from "components/SelectBox/data";
+import { filterClassificationData, filterStudyCountData, filterStack } from "components/SelectBox/data";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store/configureStore";
-import { loadPosts, setClassification, setStudyCount } from "store/posts/postsReducers";
+import { loadPosts, setFilterClassification, setFilterStack, setFilterStudyCount } from "store/posts/postsReducers";
 import { collection, onSnapshot, orderBy, query, where } from "firebase/firestore";
 import { db } from "firebaseApp/config";
 import { PostDataInfo } from "store/posts/types";
+import FilterStackBox from "./StackFilter/FilterStackBox";
+import { buildFirestoreQuery } from "utils/Filter";
+
+const fileterListStyle = {
+  display: "flex",
+  gap: "10px",
+};
 
 function FilterList() {
   const dispatch = useDispatch();
-  const { classification, studyCount } = useSelector((state: RootState) => state.post);
-  console.log(classification);
-  console.log(studyCount);
-  useEffect(() => {
-    // Firestore에서 데이터를 가져오는 로직
-    let postsRef = collection(db, "posts");
-    let postsQuery;
+  const { filterClassification, filterStudyCount, filterStacks } = useSelector((state: RootState) => state.post);
 
-    // classification과 studyCount가 모두 "all"인 경우 모든 게시물을 가져옴
-    if (classification === "전체" && studyCount === "전체") {
-      postsQuery = collection(db, "posts");
-    } else if (classification === "전체") {
-      // classification이 "전체"이고 studyCount가 특정 값인 경우 해당 값에 맞는 게시물을 가져옴
-      postsQuery = query(postsRef, where("studyCount", "==", studyCount), orderBy("createdAt", "desc"));
-    } else if (studyCount === "전체") {
-      // studyCount가 "all"이고 classification이 특정 값인 경우 해당 값에 맞는 게시물을 가져옴
-      postsQuery = query(postsRef, where("studyType", "==", classification), orderBy("createdAt", "desc"));
-    } else {
-      // 그렇지 않은 경우 classification과 studyCount에 따라 쿼리 생성
-      postsQuery = query(
-        postsRef,
-        where("studyType", "==", classification),
-        where("studyCount", "==", studyCount),
-        orderBy("createdAt", "desc")
-      );
-    }
+  useEffect(() => {
+    const postsQuery = buildFirestoreQuery(db, filterClassification, filterStudyCount, filterStacks);
 
     const unsubscribe = onSnapshot(postsQuery, snapshot => {
       const data = snapshot.docs.map(doc => ({
@@ -46,24 +31,34 @@ function FilterList() {
     });
 
     return () => unsubscribe();
-  }, [classification, studyCount, dispatch]);
+  }, [filterClassification, filterStudyCount, filterStacks, dispatch]);
+
   return (
-    <>
+    <div style={fileterListStyle}>
       <FilterSelectBox
-        title={selectData.classification.title}
-        icon={selectData.classification.icon}
+        title={filterClassificationData.title}
+        icon={filterClassificationData.icon}
         position={"bottom"}
-        list={selectData.classification.list}
-        onSelect={value => dispatch(setClassification(value))}
+        list={filterClassificationData.list}
+        onSelect={value => dispatch(setFilterClassification(value))}
+      />
+      <FilterStackBox
+        title={filterStack.title}
+        subtitle={filterStack.subtitle}
+        position={"bottom"}
+        stack={filterStack.stack}
+        css={filterStack.css}
+        onSelect={value => dispatch(setFilterStack(value))}
+        filterStacks={filterStacks}
       />
       <FilterSelectBox
-        title={selectData.studyCount.title}
-        icon={selectData.studyCount.icon}
+        title={filterStudyCountData.title}
+        icon={filterStudyCountData.icon}
         position={"bottom"}
-        list={selectData.studyCount.list}
-        onSelect={value => dispatch(setStudyCount(value))}
+        list={filterStudyCountData.list}
+        onSelect={value => dispatch(setFilterStudyCount(value))}
       />
-    </>
+    </div>
   );
 }
 

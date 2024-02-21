@@ -1,0 +1,126 @@
+.stackSelectBox {
+  width: 120px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.stackBox {
+  border-radius: 10px;
+  border: 1px solid #000;
+  width: 700px;
+  padding: 20px 20px 30px 20px;
+  background-color: white;
+}
+
+.bottom {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+}
+
+.top {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 0;
+}
+
+.stackBox_content_1,
+.stackBox_content_2 {
+  margin-top: 20px;
+}
+
+.stackBox_content_1 {
+  margin-bottom: 20px;
+}
+
+.stackBox_title {
+  margin-bottom: 15px;
+}
+
+// FilterStack 컴포넌트
+.stackBox_stacks {
+  display: flex;
+  gap: 10px;
+}
+
+.stackBox_stack {
+  display: flex;
+  padding: 10px;
+  padding-right: 15px;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+}
+
+.stackBox_stack-JvaScript {
+  background: #c2e4fb;
+  border: 1px solid black;
+}
+
+.stackBox_stack_image {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.stackBox_stack_text {
+  color: #000;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+// 각 언어 박스 스타일
+.TypeScript {
+  background: #c2e4fb;
+  opacity: 50%;
+}
+
+.JavaScript {
+  background: #fff39a;
+  opacity: 50%;
+}
+
+.NextJs {
+  background: #9b9b9b;
+  opacity: 50%;
+}
+
+.ReactJs {
+  background: #c3f7ff;
+  opacity: 50%;
+}
+
+.CSS {
+  background: #c2dbff;
+  opacity: 50%;
+}
+
+.StyledComponents {
+  background: #ffe0f5;
+  opacity: 50%;
+}
+
+.Scss {
+  background: #ffdced;
+  opacity: 50%;
+}
+
+.Postcss {
+  background: #ffd8d2;
+  opacity: 50%;
+}
+
+.Tailwind {
+  background: #c7f1ff;
+  opacity: 50%;
+}
+
+.check {
+  opacity: 100%;
+}

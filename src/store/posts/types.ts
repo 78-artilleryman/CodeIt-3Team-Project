@@ -7,10 +7,12 @@ export interface PostDataInfo {
   period: string; // 진행 기간
   postDeadline: string; // 모집 마감일
   stacks: string[]; // 기술 스택
+  hashTag?: string;
   // 게시물 내용
   postTitle: string;
   postSubTitle: string;
   postContent: string;
   uid: string;
   createdAt: string;
+  name?: string;
 }
