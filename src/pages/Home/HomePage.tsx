@@ -10,9 +10,7 @@ function HomePage() {
         <FilterList />
         <SearchBar />
       </section>
-      <section className={styles.postSection}>
-        <PostList />
-      </section>
+      <PostList />
     </>
   );
 }
