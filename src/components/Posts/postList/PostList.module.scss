@@ -1,8 +1,7 @@
 .postSection {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template: repeat(4, 1fr) / repeat(4, 1fr);
   gap: 20px;
-  width: 80%;
+  width: 1280px;
   margin: 0 auto;
 }
