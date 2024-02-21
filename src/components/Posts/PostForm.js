@@ -14,6 +14,8 @@ import styles from "./PostButtonBox.module.scss";
 import PostStackSelect from "components/SelectBox/PostStackSelect";
 import DateRangePicker from "components/SelectBox/DateRangePicker";
 import HashtagInput from "components/SelectBox/HashTagInput";
+import { useSelector } from "react-redux";
+import { RootState } from "store/configureStore";
 function PostForm() {
   // 셀렉터 (순서는 데이터에 있는 수서 그대로입니다)
   const [studyType, setStudyType] = useState("");
@@ -34,6 +36,8 @@ function PostForm() {
   const [postType, setPostType] = useState("");
 
   const auth = getAuth(app);
+  const { user } = useSelector(state => state.auth);
+
   const formatDate = date => {
     if (!date) return "";
     const year = date.getFullYear();
@@ -56,6 +60,7 @@ function PostForm() {
     projectEndDate: endDate,
     postDeadline: formatDate(optionDate),
     hashtags: hashtags,
+    userName: user.displayName,
   };
   function hasEmptyKeys(obj) {
     for (const key in obj) {

@@ -10,18 +10,7 @@ function PostList() {
       {postlist.map(data => (
         <PostBox
           key={data.id}
-          id={data.id}
-          studyType={data.studyType}
-          personnel={data.personnel}
-          meeting={data.meeting}
-          period={data.period}
-          postDeadline={data.postDeadline}
-          stacks={data.stacks}
-          postTitle={data.postTitle}
-          postSubTitle={data.postSubTitle}
-          postContent={data.postContent}
-          createdAt={data.createdAt}
-          uid={data.uid}
+          post={data} // data 객체를 한 번에 전달
         />
       ))}
     </>
