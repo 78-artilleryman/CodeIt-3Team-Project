@@ -1,0 +1,101 @@
+.select_title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.select_title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.selected_value_input_wrapper {
+  margin-top: 10px;
+  width: 305px;
+  height: 56px;
+  border-radius: 10px;
+  border: 1.5px solid #000;
+  background: #fff;
+  position: relative;
+}
+.selected_value_input {
+  font-size: 16px;
+  width: 305px;
+
+  padding-left: 35px;
+}
+.input_down_icon {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 19px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.selected_icon {
+  position: relative;
+  left: 10px;
+  top: 17px;
+}
+
+.selected_list {
+  z-index: 1;
+
+  top: 10px;
+  width: 305px;
+  border: 1.5px solid black;
+  border-radius: 10px;
+  padding: 0 10px 10px 10px;
+
+  li {
+    margin-top: 10px;
+    cursor: pointer;
+  }
+}
+
+.unselected_value {
+  color: #676767;
+}
+
+.stackSelector_wrapper {
+  display: block;
+  position: absolute;
+  width: 554px;
+  border: 1.5px solid black;
+  border-radius: 10px;
+  padding: 10px 10px 10px 10px;
+  position: relative;
+  top: 20px;
+  z-index: 100;
+  background: #fff;
+}
+.selector_list_title {
+  font-size: 14px;
+  font-weight: 500;
+}
+.selector_list {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.selector_list li {
+  cursor: pointer;
+}
+.stack_grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 10px;
+}
+.stack_grid_item {
+  font-size: 12px;
+  background-color: rgb(168, 211, 249);
+  cursor: pointer;
+  border-radius: 10px;
+  text-align: center;
+  width: 100px;
+}
