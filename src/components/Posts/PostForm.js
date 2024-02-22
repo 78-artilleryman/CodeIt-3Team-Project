@@ -61,6 +61,7 @@ function PostForm() {
     postDeadline: formatDate(optionDate),
     hashtags: hashtags,
     userName: user.displayName,
+    closed: false,
   };
   function hasEmptyKeys(obj) {
     for (const key in obj) {
