@@ -57,7 +57,7 @@ function PostBox({ post }: PostBoxProps) {
           <h3>{postTitle}</h3>
           <h4>{postSubTitle}</h4>
           <div className={styles.post_content__stack}>
-            {stacks.map((stack, index) => (
+            {stacks.slice(0, 6).map((stack, index) => (
               <img key={index} src={getImageSrc(stack)} alt={stack} />
             ))}
           </div>
