@@ -8,24 +8,6 @@
   gap: 10px;
 }
 
-// 모집 마감 스타일
-.close {
-  opacity: 50%;
-  position: relative;
-}
-
-.closeButton {
-  opacity: none;
-  width: 40%;
-  height: 40px;
-  position: absolute;
-  background-color: red;
-  color: #fff;
-  border-radius: 10px;
-  top: 40%;
-  left: 30%;
-}
-
 .post_title {
   display: flex;
   justify-content: space-between;
@@ -103,4 +85,28 @@
     font-size: 14px;
     font-weight: 500;
   }
+}
+
+//공고 마감 스타일
+.close {
+  position: relative;
+}
+
+.closeButton {
+  opacity: none;
+  width: 40%;
+  height: 40px;
+  position: absolute;
+  background-color: #fb4e4e;
+  color: #fff;
+  border-radius: 10px;
+  top: 40%;
+  left: 30%;
+  box-shadow: 3px 7px 19px 1px black;
+}
+
+.close .post_title,
+.close .post_content,
+.close .post_user {
+  opacity: 50%;
 }
