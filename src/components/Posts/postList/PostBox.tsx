@@ -15,6 +15,7 @@ interface PostBoxProps {
     postDeadline: string; // 모집 마감일
     stacks: string[]; // 기술 스택
     hashTag?: string;
+    closed: boolean;
     // 게시물 내용
     postTitle: string;
     postSubTitle: string;
@@ -38,12 +39,14 @@ function PostBox({ post }: PostBoxProps) {
     userName,
     projectStartDate,
     projectEndDate,
+    closed,
   } = post;
 
   const getImageSrc = (stack: string) => `LogoImages/postBox/${stack}.png`;
+  const closeName = closed ? styles["close"] : "";
 
   return (
-    <div className={styles.post} key={id}>
+    <div className={`${styles.post} ${closeName}`} key={id}>
       <Link to={`/posts/${id}`}>
         <div className={styles.post_title}>
           <div className={styles.post_title__tag}>{studyType}</div>
@@ -54,7 +57,7 @@ function PostBox({ post }: PostBoxProps) {
           <h3>{postTitle}</h3>
           <h4>{postSubTitle}</h4>
           <div className={styles.post_content__stack}>
-            {stacks.map((stack, index) => (
+            {stacks.slice(0, 6).map((stack, index) => (
               <img key={index} src={getImageSrc(stack)} alt={stack} />
             ))}
           </div>
@@ -64,6 +67,7 @@ function PostBox({ post }: PostBoxProps) {
           <p>{userName}</p>
         </div>
       </Link>
+      {closed && <button className={styles.closeButton}>공고 마감</button>}
     </div>
   );
 }
