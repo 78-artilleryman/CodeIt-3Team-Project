@@ -1,6 +1,7 @@
 import styles from "./FilterStackBox.module.scss";
 import FilterStack from "./FilterStack";
 import useFilterSelect from "../../../../hooks/useFilterSelect";
+import { useEffect, useRef } from "react";
 
 interface FilterStackBoxProps {
   title: string;
@@ -23,7 +24,8 @@ interface FilterStackBoxProps {
 }
 
 function FilterStackBox({ title, subtitle, position, stack, css, onSelect, filterStacks }: FilterStackBoxProps) {
-  const { isSelectOpen, selectToggleHandler } = useFilterSelect();
+  const { isSelectOpen, selectToggleHandler, selectHadler } = useFilterSelect();
+  const ref = useRef<HTMLDivElement | null>(null);
 
   const stackBoxClassName = `${position === "bottom" ? styles["bottom"] : styles["top"]}`;
 
@@ -31,9 +33,24 @@ function FilterStackBox({ title, subtitle, position, stack, css, onSelect, filte
     onSelect(value);
   };
 
+  useEffect(() => {
+    function handleClickOutside(event: any) {
+      // ref.current는 참조 객체의 현재 값(외부 클릭을 감지하고자 하는 대상)
+      // ref.current가 event.target을 포함하는지 판단하여 !연산
+      // 즉, event.target이 외부에서 발생했다면 드롭다운 메뉴를 false하여 닫음
+      if (ref.current && !ref.current.contains(event.target)) {
+        selectHadler(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <>
-      <div className={styles.stackSelectBox} onClick={selectToggleHandler}>
+      <div className={styles.stackSelectBox} onClick={selectToggleHandler} ref={ref}>
         {"📚 " + title}
         {isSelectOpen && (
           <div className={`${styles.stackBox} ${stackBoxClassName}`}>
