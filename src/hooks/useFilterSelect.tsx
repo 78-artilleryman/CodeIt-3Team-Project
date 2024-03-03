@@ -7,6 +7,8 @@ function useFilterSelect() {
 
   const selectToggleHandler = () => setIsSelectOpen(prevSelect => !prevSelect);
 
+  const selectHadler = (res: any) => setIsSelectOpen(res);
+
   const selectedHandler = (event: MouseEvent) => {
     const target = event.target as HTMLLIElement | HTMLUListElement;
     if (target.nodeName === "UL") return;
@@ -20,6 +22,7 @@ function useFilterSelect() {
     stackSelected,
     selectToggleHandler,
     selectedHandler,
+    selectHadler,
   };
 }
 
